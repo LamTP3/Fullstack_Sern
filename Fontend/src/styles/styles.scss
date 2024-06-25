@@ -1,4 +1,4 @@
-// @import "variables";
+@import "variables";
 
 // @import "../../node_modules/bootstrap/scss/bootstrap";
 
@@ -10,3 +10,8 @@
 
 // @import "base";
 // @import "form";
+
+body,
+html {
+  overflow: hidden;
+}

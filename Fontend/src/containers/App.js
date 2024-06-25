@@ -4,23 +4,21 @@ import { Route, Switch } from "react-router-dom";
 import { ConnectedRouter as Router } from "connected-react-router";
 import { history } from "../redux";
 import { ToastContainer } from "react-toastify";
-
 import {
   userIsAuthenticated,
   userIsNotAuthenticated,
 } from "../hoc/authentication";
 
 import { path } from "../utils";
-
-import Home from "../routes/Home";
 // import Login from '../routes/Login';
+// import ConfirmModal from "../components/ConfirmModal";
+import Home from "../routes/Home";
 import Login from "./Auth/Login";
 import Header from "./Header/Header";
 import System from "../routes/System";
 import HomePage from "./HomePage/HomePage";
 import { CustomToastCloseButton } from "../components/CustomToast";
-// import ConfirmModal from "../components/ConfirmModal";
-
+import CustomScrollbars from "../components/CustomScrollbars";
 class App extends Component {
   handlePersistorState = () => {
     const { persistor } = this.props;
@@ -48,20 +46,22 @@ class App extends Component {
             {/* <ConfirmModal /> */}
             {this.props.isLoggedIn && <Header />}
 
-            <span className="content-container">
-              <Switch>
-                <Route path={path.HOME} exact component={Home} />
-                <Route
-                  path={path.LOGIN}
-                  component={userIsNotAuthenticated(Login)}
-                />
-                <Route
-                  path={path.SYSTEM}
-                  component={userIsAuthenticated(System)}
-                />
-                <Route path={path.HOMEPAGE} component={HomePage} />
-              </Switch>
-            </span>
+            <div className="content-container">
+              <CustomScrollbars style={{ height: "100vh", width: "100%" }}>
+                <Switch>
+                  <Route path={path.HOME} exact component={Home} />
+                  <Route
+                    path={path.LOGIN}
+                    component={userIsNotAuthenticated(Login)}
+                  />
+                  <Route
+                    path={path.SYSTEM}
+                    component={userIsAuthenticated(System)}
+                  />
+                  <Route path={path.HOMEPAGE} component={HomePage} />
+                </Switch>
+              </CustomScrollbars>
+            </div>
 
             <ToastContainer
               className="toast-container"
