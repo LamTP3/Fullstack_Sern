@@ -1,10 +1,17 @@
 import React, { Component } from "react";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, injectIntl } from "react-intl";
+import { LANGUAGE } from "../../utils/constant";
 import { connect } from "react-redux";
+import { setAppLanguage } from "../../store/actions/appActions";
 import "./HomeHeader.scss";
+
 class Header extends Component {
+  handleChangeLanguage = (language) => {
+    this.props.changeLanguageAppRedux(language);
+  };
   render() {
-    console.log(`Check this props: `, this.props);
+    const { intl } = this.props;
+    let language = this.props.lang;
     return (
       <>
         <div className="home-header-container">
@@ -132,8 +139,28 @@ class Header extends Component {
                 <i className="fas fa-question-circle"></i>
                 <FormattedMessage id={"home-header.support"} />
               </div>
-              <div className="language-vi"> VN</div>
-              <div className="language-vi"> EN</div>
+              <div
+                className={
+                  language === LANGUAGE.VI
+                    ? "language-vi active"
+                    : "language-vi"
+                }
+              >
+                <span onClick={() => this.handleChangeLanguage(LANGUAGE.VI)}>
+                  VN
+                </span>
+              </div>
+              <div
+                className={
+                  language === LANGUAGE.EN
+                    ? "language-en active"
+                    : "language-en"
+                }
+              >
+                <span onClick={() => this.handleChangeLanguage(LANGUAGE.EN)}>
+                  EN
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -147,7 +174,12 @@ class Header extends Component {
             </div>
             <div className="search">
               <i className="fas fa-search"></i>
-              <input type="text" placeholder="Tìm chuyên khoa khám bệnh" />
+              <input
+                type="text"
+                placeholder={intl.formatMessage({
+                  id: "banner.select-speciality",
+                })}
+              />
             </div>
           </div>
           <div className="content-down">
@@ -216,7 +248,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    changeLanguageAppRedux: (language) => dispatch(setAppLanguage(language)),
+  };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Header));

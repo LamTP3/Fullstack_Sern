@@ -58,15 +58,19 @@
       .language-vi {
         margin: 0 10px;
         cursor: pointer;
+        opacity: 0.5;
         &.active {
           color: orange;
+          opacity: 1;
         }
       }
 
       .language-en {
         cursor: pointer;
+        opacity: 0.5;
         &.active {
           color: orange;
+          opacity: 1;
         }
       }
     }
