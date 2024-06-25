@@ -1,7 +1,8 @@
 .home-header-container {
   height: 60px;
-  padding: 0 20px;
+  padding: 10px 20px;
   background-color: #edfffa;
+  box-sizing: content-box;
 
   .home-header-content {
     width: 100%;
@@ -19,14 +20,6 @@
         cursor: pointer;
         padding: 0 10px;
       }
-
-      // .header-logo {
-      //   height: 100%;
-      //   width: 100%;
-      //   background: url("../../assets/images/logo.png") center center no-repeat;
-      //   background-size: 75%;
-      //   cursor: pointer;
-      // }
     }
 
     .center-content {
@@ -49,7 +42,33 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 6px;
+
+      .support {
+        padding-right: 50px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+
+        i {
+          font-size: 15px;
+          margin-right: 5px;
+        }
+      }
+
+      .language-vi {
+        margin: 0 10px;
+        cursor: pointer;
+        &.active {
+          color: orange;
+        }
+      }
+
+      .language-en {
+        cursor: pointer;
+        &.active {
+          color: orange;
+        }
+      }
     }
   }
 }
@@ -60,12 +79,15 @@
   background-repeat: repeat;
   background-size: cover;
   background-position: center;
-  padding: 15px 0;
   display: flex;
   flex-direction: column;
 
   .content-up {
-    height: 50%;
+    height: 65%;
+    background-image: linear-gradient(
+      rgba(0, 0, 0, 0.25),
+      rgba(255, 255, 255, 0.1)
+    );
 
     .title1 {
       text-align: center;
@@ -73,7 +95,7 @@
       color: white;
       text-shadow: 1px 1px 1px black;
       margin-bottom: 8px;
-      margin-top: 30px;
+      margin-top: 45px;
     }
 
     .title2 {
@@ -109,15 +131,25 @@
   }
 
   .content-down {
-    height: 50%;
+    height: 35%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    background-image: linear-gradient(
+      rgba(255, 255, 255, 0.1),
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 1)
+    );
 
     .option {
       display: flex;
       justify-content: center;
       text-align: center;
-      gap: 30px;
+      grid-gap: 30px;
+
       .option-child {
-        width: 120px;
+        width: 100px;
+
         .icon-child {
           background-color: white;
           width: 60px;
@@ -136,6 +168,7 @@
           font-size: 17px;
           font-weight: 500;
           cursor: pointer;
+
           &:hover {
             color: rgb(59, 139, 205);
           }

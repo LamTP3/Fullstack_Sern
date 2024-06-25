@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "react-toastify/dist/ReactToastify.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./styles/styles.scss";
+// import "./styles/styles.scss";
 import App from "./containers/App";
 // import * as serviceWorker from "./serviceWorker";
 import IntlProviderWrapper from "./hoc/IntlProviderWrapper";
