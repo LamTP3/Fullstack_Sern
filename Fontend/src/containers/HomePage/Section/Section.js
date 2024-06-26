@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import "./Section.scss";
 
-class Specialty extends Component {
+class Section extends Component {
   render() {
     const { bg_Color, title, data, image, img_width, img_height, img_radius } =
       this.props;
@@ -65,4 +65,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
+export default connect(mapStateToProps, mapDispatchToProps)(Section);

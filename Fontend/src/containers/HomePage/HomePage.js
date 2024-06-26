@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import HomeHeader from "./HomeHeader";
+import HomeHeader from "../HomePage/Header/HomeHeader";
 import Specialty from "./Section/Section";
+import About from "./Section/About";
+import HomeFooter from "./Footer/HomeFooter";
 import IMG1 from "../../assets/specialty/img1.png";
 import IMG2 from "../../assets/medical-facility/img2.jpg";
 import IMG3 from "../../assets/doctor/avatar.png";
 import IMG4 from "../../assets/handbook/img4.jpeg";
+import "./HomePage.scss";
 class HomePage extends Component {
   data1 = [
     { id: 1, name: "Cơ xương khớp 1" },
@@ -45,7 +48,7 @@ class HomePage extends Component {
         <HomeHeader />
         <Specialty
           title="Chuyên khoa phổ biến"
-          bg_Color="#f5f5f5"
+          bg_Color="#eee"
           image={IMG1}
           data={this.data1}
         />
@@ -57,7 +60,8 @@ class HomePage extends Component {
         />
         <Specialty
           title="Bác sĩ nổi bật tuần qua"
-          bg_Color="#f5f5f5"
+          bg_Color="#eee"
+          // bg_Color="#f5f5f5"
           image={IMG3}
           data={this.data3}
           img_width="120px"
@@ -67,9 +71,12 @@ class HomePage extends Component {
         <Specialty
           title="Cẩm Nang"
           bg_Color="#eee"
+          // bg_Color="#f5f5f5"
           image={IMG4}
           data={this.data4}
         />
+        <About />
+        <HomeFooter />
       </>
     );
   }

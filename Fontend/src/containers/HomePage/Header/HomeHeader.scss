@@ -3,6 +3,9 @@
   padding: 10px 20px;
   background-color: #edfffa;
   box-sizing: content-box;
+  top: 0;
+  position: sticky;
+  z-index: 3;
 
   .home-header-content {
     width: 100%;
@@ -76,9 +79,30 @@
     }
   }
 }
+@media (max-width: 1120px) {
+  .home-header-container {
+    height: auto;
+
+    .home-header-content {
+      .left-content {
+        width: 50%;
+      }
+      .right-content {
+        justify-content: right;
+        width: 50%;
+      }
+      flex-wrap: wrap;
+      .center-content {
+        margin-top: 10px;
+        width: 100%;
+        order: 2;
+      }
+    }
+  }
+}
 
 .home-header-banner {
-  background: url("../../assets/images/header-background.jpg");
+  background: url("../../../assets/images/header-background.jpg");
   height: 485px;
   background-repeat: repeat;
   background-size: cover;

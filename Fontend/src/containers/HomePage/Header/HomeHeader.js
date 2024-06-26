@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { FormattedMessage, injectIntl } from "react-intl";
-import { LANGUAGE } from "../../utils/constant";
+import { LANGUAGE } from "../../../utils/constant";
 import { connect } from "react-redux";
-import { setAppLanguage } from "../../store/actions/appActions";
+import { setAppLanguage } from "../../../store/actions/appActions";
 import "./HomeHeader.scss";
 
 class Header extends Component {
