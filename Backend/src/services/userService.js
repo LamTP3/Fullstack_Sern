@@ -1,3 +1,4 @@
+import { where } from "sequelize";
 import db from "../models/index";
 import bcrypt from "bcrypt";
 const salt = bcrypt.genSaltSync(10);
@@ -190,6 +191,29 @@ let updateUserData = (data) => {
     }
   });
 };
+let getAllCodeService = (type) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!type) {
+        let data = await db.Allcode.findAll();
+        resolve({
+          errCode: 0,
+          data: data,
+        });
+      } else {
+        let data = await db.Allcode.findAll({
+          where: { type: type },
+        });
+        resolve({
+          errCode: 0,
+          data: data,
+        });
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 
 module.exports = {
   handleUserLogin: handleUserLogin,
@@ -197,4 +221,5 @@ module.exports = {
   createNewUser: createNewUser,
   deleteUser: deleteUser,
   updateUserData: updateUserData,
+  getAllCodeService: getAllCodeService,
 };

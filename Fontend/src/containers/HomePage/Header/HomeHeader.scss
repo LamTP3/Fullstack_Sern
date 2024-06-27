@@ -169,13 +169,10 @@
       rgba(255, 255, 255, 0.9),
       rgba(255, 255, 255, 1)
     );
-
     .option {
       display: flex;
-      justify-content: center;
       text-align: center;
       grid-gap: 30px;
-
       .option-child {
         width: 100px;
 
