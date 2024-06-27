@@ -52,5 +52,21 @@
             "manage-handbook": "Quản lý Cẩm nang"
             
         }
+    },
+
+    "manage-user": {
+        "email": "Email",
+        "password": "Mật Khẩu",
+        "firstName": "Tên",
+        "lastName": "Họ",
+        "address": "Điạ Chỉ",
+        "phone": "Số điện thoại",
+        "gender": "Giới Tính",
+        "image": "Hình ảnh",
+        "role": "Vai trò",
+        "position": "Chức Vụ",
+        "save": "Lưu User"
+
     }
+
 }
