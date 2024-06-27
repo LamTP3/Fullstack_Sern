@@ -1,7 +1,7 @@
-import { where } from "sequelize";
 import db from "../models/index";
 import bcrypt from "bcrypt";
 const salt = bcrypt.genSaltSync(10);
+
 let createNewUser = async (data) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -54,7 +54,7 @@ let handleUserLogin = (email, password) => {
         //user already exist
         //compare password
         let user = await db.User.findOne({
-          attributes: ["email", "roleId", "password"], // chỉ lấy bằng này thuộc tính
+          attributes: ["email", "roleId", "password", "firstName", "lastName"], // chỉ lấy bằng này thuộc tính
           where: { email: email },
           // raw: true,
         });
@@ -191,6 +191,7 @@ let updateUserData = (data) => {
     }
   });
 };
+
 let getAllCodeService = (type) => {
   return new Promise(async (resolve, reject) => {
     try {

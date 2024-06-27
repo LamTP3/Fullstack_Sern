@@ -5,13 +5,14 @@ import { connect } from "react-redux";
 import { setAppLanguage } from "../../../store/actions/appActions";
 import "./HomeHeader.scss";
 
-class Header extends Component {
+class HomeHeader extends Component {
   handleChangeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
   };
   render() {
-    const { intl } = this.props;
-    let language = this.props.lang;
+    const { intl, language } = this.props;
+    // console.log(this.props);
+
     return (
       <>
         <div className="home-header-container">
@@ -243,7 +244,7 @@ class Header extends Component {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
-    lang: state.app.language,
+    language: state.app.language,
   };
 };
 
@@ -253,4 +254,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Header));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(injectIntl(HomeHeader));
