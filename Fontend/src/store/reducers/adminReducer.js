@@ -36,7 +36,6 @@ const adminReducer = (state = initialState, action) => {
 
     case actionTypes.FETCH_POSITION_SUCCESS:
       state.position = action.data;
-      // console.log("check position: ", state);
       return {
         ...state,
       };
@@ -48,7 +47,6 @@ const adminReducer = (state = initialState, action) => {
       };
     case actionTypes.FETCH_ROLE_SUCCESS:
       state.role = action.data;
-      // console.log("check role: ", state);
       return {
         ...state,
       };
