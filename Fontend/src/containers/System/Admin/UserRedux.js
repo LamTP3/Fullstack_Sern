@@ -6,6 +6,8 @@ import * as action from "../../../store/actions";
 import "./UserRedux.scss";
 import "react-image-lightbox/style.css";
 import Lightbox from "react-image-lightbox";
+import TableManageUser from "./TableManageUser";
+
 class UserRedux extends Component {
   constructor(props) {
     super(props);
@@ -62,7 +64,26 @@ class UserRedux extends Component {
         },
       });
     }
+
+    if (prevProps.userData !== this.props.userData) {
+      this.setState({
+        ...this.state,
+        form: {
+          email: "",
+          password: "",
+          firstName: "",
+          lastName: "",
+          address: "",
+          phonenumber: "",
+          gender: "",
+          roleId: "",
+          positionId: "",
+          image: "",
+        },
+      });
+    }
   }
+
   handleOnChangeImage = (e) => {
     let file = e.target.files[0];
     if (file) {
@@ -73,6 +94,7 @@ class UserRedux extends Component {
       });
     }
   };
+
   openPreviewImage = () => {
     if (!this.state.previewImgURL) return;
     this.setState({
@@ -82,6 +104,9 @@ class UserRedux extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.saveUserRedux(this.state.form);
+    // setTimeout(() => {
+    //   this.props.fecthUserRedux();
+    // }, 1000);
   };
   render() {
     let language = this.props.language;
@@ -337,6 +362,8 @@ class UserRedux extends Component {
                 <FormattedMessage id="manage-user.save" />
               </button>
             </form>
+
+            <TableManageUser />
           </div>
         </div>
         {this.state.isOpen === true && (
@@ -357,6 +384,7 @@ const mapStateToProps = (state) => {
     roleRedux: state.admin.role,
     positionRedux: state.admin.position,
     isLoadingGender: state.admin.isLoadingGender,
+    userData: state.admin.users,
   };
 };
 
@@ -366,6 +394,9 @@ const mapDispatchToProps = (dispatch) => {
     getRoleStart: () => dispatch(action.fetchRoleStart()),
     getPositionStart: () => dispatch(action.fetchPositionStart()),
     saveUserRedux: (data) => dispatch(action.createNewUser(data)),
+    fecthUserRedux: () => {
+      dispatch(action.fetchAllUsers());
+    },
   };
 };
 

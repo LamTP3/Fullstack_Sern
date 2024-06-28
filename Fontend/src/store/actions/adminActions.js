@@ -2,8 +2,10 @@ import actionTypes from "./actionTypes";
 import {
   getAllCodeService,
   createUserService,
+  getAllUsers,
+  deleteUserService,
 } from "../../services/userService";
-
+import { toast } from "react-toastify";
 export const fetchGenderStart = () => async (dispatch, getState) => {
   // console.log(`Check get state: ` + JSON.stringify(getState()));
   return getAllCodeService("GENDER").then((res) => {
@@ -66,10 +68,13 @@ export const fetchRoleFailed = () => ({
 export const createNewUser = (data) => {
   return async (dispatch, getState) => {
     try {
-      let res = createUserService(data);
+      let res = await createUserService(data);
       if (res && res.errCode === 0) {
         dispatch(saveUserSuccess());
+        dispatch(fetchAllUsers());
+        toast.success("Create new user success!");
       } else {
+        console.log("Failed to save user: ", res);
         dispatch(saveUserFailed());
       }
     } catch (e) {
@@ -79,6 +84,33 @@ export const createNewUser = (data) => {
   };
 };
 
+export const deleteUser = (data) => {
+  return async (dispatch, getState) => {
+    try {
+      let res = await deleteUserService(data);
+      if (res && res.errCode === 0) {
+        dispatch(deleteUserSuccess());
+        dispatch(fetchAllUsers());
+        toast.success("Delete user success!");
+      } else {
+        console.log("Failed to delete user: ", res);
+        dispatch(deleteUserFailed());
+      }
+    } catch (e) {
+      dispatch(deleteUserFailed());
+      console.log("Failed to delete user: ", e);
+    }
+  };
+};
+
+export const deleteUserSuccess = () => ({
+  type: actionTypes.DELETE_USER_SUCCESS,
+});
+
+export const deleteUserFailed = () => ({
+  type: actionTypes.DELETE_USER_FAILED,
+});
+
 export const saveUserSuccess = () => ({
   type: actionTypes.SAVE_USER_SUCCESS,
 });
@@ -86,3 +118,19 @@ export const saveUserSuccess = () => ({
 export const saveUserFailed = () => ({
   type: actionTypes.SAVE_USER_FAILED,
 });
+
+export const fetchAllUsers = () => {
+  return async (dispatch, getState) => {
+    let response = await getAllUsers("ALL");
+    if (response && response.errCode === 0) {
+      dispatch({
+        type: actionTypes.FETCH_ALL_USERS_SUCCESS,
+        users: response.users.reverse(),
+      });
+    } else {
+      dispatch({
+        type: actionTypes.FETCH_ALL_USERS_FAILED,
+      });
+    }
+  };
+};

@@ -5,6 +5,7 @@ const initialState = {
   gender: [],
   role: [],
   position: [],
+  users: [],
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -45,13 +46,37 @@ const adminReducer = (state = initialState, action) => {
       return {
         ...state,
       };
+
     case actionTypes.FETCH_ROLE_SUCCESS:
       state.role = action.data;
       return {
         ...state,
       };
+
     case actionTypes.FETCH_ROLE_FAILED:
       state.role = [];
+      return {
+        ...state,
+      };
+
+    case actionTypes.FETCH_ALL_USERS_SUCCESS:
+      state.users = action.users;
+      return {
+        ...state,
+      };
+
+    case actionTypes.FETCH_ALL_USERS_FAILED:
+      state.users = [];
+      return {
+        ...state,
+      };
+
+    case actionTypes.DELETE_USER_SUCCESS:
+      return {
+        ...state,
+      };
+
+    case actionTypes.DELETE_USER_FAILED:
       return {
         ...state,
       };
