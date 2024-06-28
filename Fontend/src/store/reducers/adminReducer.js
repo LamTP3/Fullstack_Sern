@@ -1,33 +1,66 @@
-import actionTypes from '../actions/actionTypes';
+import actionTypes from "../actions/actionTypes";
 
 const initialState = {
-    isLoggedIn: false,
-    adminInfo: null
-}
+  isLoadingGender: false,
+  gender: [],
+  role: [],
+  position: [],
+};
 
-const appReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case actionTypes.ADMIN_LOGIN_SUCCESS:
-            return {
-                ...state,
-                isLoggedIn: true,
-                adminInfo: action.adminInfo
-            }
-        case actionTypes.ADMIN_LOGIN_FAIL:
-            return {
-                ...state,
-                isLoggedIn: false,
-                adminInfo: null
-            }
-        case actionTypes.PROCESS_LOGOUT:
-            return {
-                ...state,
-                isLoggedIn: false,
-                adminInfo: null
-            }
-        default:
-            return state;
-    }
-}
+const adminReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case actionTypes.FETCH_GENDER_START:
+      let copyState1 = { ...state };
+      copyState1.isLoadingGender = true;
+      return {
+        ...copyState1,
+      };
 
-export default appReducer;
+    case actionTypes.FETCH_GENDER_SUCCESS:
+      // console.log(action.genderData);
+      let copyState2 = { ...state };
+      copyState2.gender = action.genderData;
+      copyState2.isLoadingGender = false;
+      // console.log("check state: ", copyState);
+      return {
+        ...copyState2,
+      };
+
+    case actionTypes.FETCH_GENDER_FAILED:
+      let copyState3 = { ...state };
+      copyState3.gender = [];
+      copyState3.isLoadingGender = false;
+      return {
+        ...state,
+      };
+
+    case actionTypes.FETCH_POSITION_SUCCESS:
+      state.position = action.data;
+      // console.log("check position: ", state);
+      return {
+        ...state,
+      };
+
+    case actionTypes.FETCH_POSITION_FAILED:
+      state.position = [];
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_ROLE_SUCCESS:
+      state.role = action.data;
+      // console.log("check role: ", state);
+      return {
+        ...state,
+      };
+    case actionTypes.FETCH_ROLE_FAILED:
+      state.role = [];
+      return {
+        ...state,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export default adminReducer;
