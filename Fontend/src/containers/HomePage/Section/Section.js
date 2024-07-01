@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import "./Section.scss";
+import { LANGUAGE } from "../../../utils/constant";
 
 class Section extends Component {
   render() {
@@ -16,7 +17,7 @@ class Section extends Component {
       slidesToShow: 4,
       slidesToScroll: 1,
     };
-
+    let { language } = this.props;
     return (
       <>
         <div className="section-section" style={{ background: bg_Color }}>
@@ -27,25 +28,30 @@ class Section extends Component {
             </div>
             <div className="section-body">
               <Slider {...settings}>
-                {data?.map((item) => (
-                  <div key={item.id} className="section-customie">
-                    <div className="outer_bg">
-                      <div
-                        className="bg-image"
-                        style={{
-                          backgroundImage: image ? `url(${image})` : "",
-                          width: img_width,
-                          height: img_height,
-                          borderRadius: img_radius,
-                        }}
-                      />
+                {data?.map((item) => {
+                  let nameVi = `${item.positionData?.valueVi}, ${item.lastName} ${item.firstName}`;
+                  let nameEN = `${item.positionData?.valueEn}, ${item.firstName} ${item.lastName}`;
+                  return (
+                    <div key={item.id} className="section-customie">
+                      <div className="outer_bg">
+                        <div
+                          className="bg-image"
+                          style={{
+                            backgroundImage: image ? `url(${image})` : "",
+                            width: img_width,
+                            height: img_height,
+                            borderRadius: img_radius,
+                          }}
+                        />
+                      </div>
+                      <div className="position text-center">
+                        <div>{language === LANGUAGE.VI ? nameVi : nameEN}</div>
+                        <div>{item.name}</div>
+                        <div>{item.specialty}</div>
+                      </div>
                     </div>
-                    <div className="position text-center">
-                      <div>{item.name}</div>
-                      <div>{item.specialty}</div>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </Slider>
             </div>
           </div>
@@ -58,6 +64,7 @@ class Section extends Component {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
+    language: state.app.language,
   };
 };
 

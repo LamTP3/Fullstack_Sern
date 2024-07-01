@@ -9,7 +9,15 @@ import IMG2 from "../../assets/medical-facility/img2.jpg";
 import IMG3 from "../../assets/doctor/avatar.png";
 import IMG4 from "../../assets/handbook/img4.jpeg";
 import "./HomePage.scss";
+import * as action from "../../store/actions";
 class HomePage extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      arrDoctor: [],
+    };
+  }
+
   data1 = [
     { id: 1, name: "Cơ xương khớp 1" },
     { id: 2, name: "Cơ xương khớp 2" },
@@ -42,7 +50,20 @@ class HomePage extends Component {
     { id: 5, name: "Cẩm Nang 5" },
     { id: 6, name: "Cẩm Nang 6" },
   ];
+
+  componentDidMount() {
+    this.props.loadTopDoctor();
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.topDoctor !== this.props.topDoctor) {
+      this.setState({
+        arrDoctor: this.props.topDoctor,
+      });
+    }
+  }
   render() {
+    let test = this?.state?.arrDoctor;
+    test = test.concat(test).concat(test);
     return (
       <>
         <HomeHeader />
@@ -63,10 +84,11 @@ class HomePage extends Component {
           bg_Color="#eee"
           // bg_Color="#f5f5f5"
           image={IMG3}
-          data={this.data3}
+          data={test}
           img_width="120px"
           img_height="120px"
           img_radius="50%"
+          doctor={true}
         />
         <Specialty
           title="Cẩm Nang"
@@ -85,11 +107,14 @@ class HomePage extends Component {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.user.isLoggedIn,
+    topDoctor: state.admin.topDoctor,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    loadTopDoctor: () => dispatch(action.fetchTopDoctor()),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

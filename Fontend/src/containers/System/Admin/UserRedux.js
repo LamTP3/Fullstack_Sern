@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { FormattedMessage } from "react-intl";
 import { LANGUAGE, CRUD_ACTIONS } from "../../../utils/constant";
+import { CommonUtils } from "../../../utils";
+import { connect } from "react-redux";
 import * as action from "../../../store/actions";
-import "./UserRedux.scss";
-import "react-image-lightbox/style.css";
-import Lightbox from "react-image-lightbox";
+import { FormattedMessage } from "react-intl";
 import TableManageUser from "./TableManageUser";
+import Lightbox from "react-image-lightbox";
+import "react-image-lightbox/style.css";
+import "./UserRedux.scss";
 
 class UserRedux extends Component {
   constructor(props) {
@@ -72,6 +73,7 @@ class UserRedux extends Component {
       this.setState({
         ...this.state,
         action: CRUD_ACTIONS.CREATE,
+        previewImgURL: "",
         form: {
           email: "",
           password: "",
@@ -92,13 +94,15 @@ class UserRedux extends Component {
     }
   }
 
-  handleOnChangeImage = (e) => {
+  handleOnChangeImage = async (e) => {
     let file = e.target.files[0];
     if (file) {
+      let base64 = await CommonUtils.getBase64(file);
+      // console.log("Check Image: ", base64);
       let obeject = URL.createObjectURL(file);
       this.setState({
         previewImgURL: obeject,
-        form: { ...this.state.form, image: file },
+        form: { ...this.state.form, image: base64 },
       });
     }
   };
@@ -123,9 +127,16 @@ class UserRedux extends Component {
   };
 
   handleEditUserFromParent = (user) => {
+    let imageBase64 = "";
+    // console.log("Check edit user", user);
+    if (user.image) {
+      imageBase64 = new Buffer(user.image, "base64").toString("binary");
+    }
+
     this.setState({
       ...this.state,
       action: CRUD_ACTIONS.EDIT,
+      previewImgURL: imageBase64,
       form: {
         id: user.id,
         email: user.email,
@@ -137,7 +148,8 @@ class UserRedux extends Component {
         positionId: user.positionId,
         gender: user.gender,
         roleId: user.roleId,
-        image: "",
+        image: imageBase64,
+        // image: user.image,
       },
     });
   };

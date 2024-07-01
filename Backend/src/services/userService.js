@@ -23,6 +23,7 @@ let createNewUser = async (data) => {
           gender: data.gender,
           roleId: data.roleId,
           positionId: data.positionId,
+          image: data.image,
         });
         resolve({
           errCode: 0,
@@ -180,6 +181,7 @@ let updateUserData = (data) => {
         user.roleId = data.roleId;
         user.positionId = data.positionId;
         user.phonenumber = data.phonenumber;
+        user.image = data.image;
 
         await user.save();
         resolve({
