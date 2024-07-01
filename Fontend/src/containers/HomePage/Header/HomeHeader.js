@@ -11,7 +11,6 @@ class HomeHeader extends Component {
   };
   render() {
     const { intl, language } = this.props;
-    // console.log("check language: ", language);
     return (
       <>
         <div className="home-header-container">
@@ -99,7 +98,7 @@ class HomeHeader extends Component {
                     <FormattedMessage id={"home-header.speciality"} />
                   </b>
                 </div>
-                <div className="subs-title">
+                <div className="subs-title  modified-fixed">
                   <FormattedMessage id={"home-header.search-doctor"} />
                 </div>
               </div>
@@ -109,17 +108,17 @@ class HomeHeader extends Component {
                     <FormattedMessage id={"home-header.health-facility"} />
                   </b>
                 </div>
-                <div className="subs-title">
+                <div className="subs-title ">
                   <FormattedMessage id={"home-header.select-room"} />
                 </div>
               </div>
-              <div className="child-content">
+              <div className="child-content ">
                 <div>
                   <b>
                     <FormattedMessage id={"home-header.doctor"} />
                   </b>
                 </div>
-                <div className="subs-title">
+                <div className="subs-title modified">
                   <FormattedMessage id={"home-header.select-doctor"} />
                 </div>
               </div>

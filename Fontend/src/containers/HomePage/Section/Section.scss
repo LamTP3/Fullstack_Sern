@@ -3,11 +3,11 @@
   background: #f5f5f5;
 
   .section-container {
-    margin: 0px 190px;
+    margin-left: 160px;
     display: flex;
     flex-direction: column;
     @media screen and (max-width: 850px) {
-      margin: 0px 50px;
+      margin-left: 50px;
     }
 
     .section-header {
@@ -19,6 +19,7 @@
         font-weight: 600;
       }
       .btn-section {
+        margin-right: 150px;
         float: right;
         padding: 10px 15px;
         border: none;
@@ -27,6 +28,9 @@
         color: black;
         cursor: pointer;
         text-transform: uppercase;
+        @media screen and (max-width: 1400px) {
+          margin-right: 0px;
+        }
         &:hover {
           color: white;
           background: #f7d800;
@@ -34,44 +38,51 @@
       }
     }
     .section-body {
-      .section-customie {
-        .outer_bg {
-          display: flex;
-          justify-content: center;
-          margin-bottom: 10px;
-          .bg-image {
-            margin-top: 5px;
-            height: 150px;
-            width: 278px;
-            background: url("../../../assets/specialty/img1.png");
-            background-position: center center;
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-color: #eee;
+      width: 100%;
+      overflow-x: hidden;
+      .slick-slider {
+        width: 1200px;
+        .section-customie {
+          height: 150px;
+          width: 278px !important;
+          .outer_bg {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            .bg-image {
+              margin-top: 5px;
+              height: 150px;
+              width: 278px;
+              background: url("../../../assets/specialty/img1.png");
+              background-position: center center;
+              background-repeat: no-repeat;
+              background-size: cover;
+              background-color: #eee;
+            }
           }
         }
-      }
-      // Customize Slick Slider CSS
-      .slick-prev {
-        z-index: 2;
-        height: 45px !important;
-        width: 40px !important;
-        margin-left: 20px !important;
-        background: #45c3d2 !important;
-        opacity: 0.7;
-        &:hover {
-          opacity: 1;
+        // Customize Slick Slider CSS
+        .slick-prev {
+          z-index: 2;
+          height: 45px !important;
+          width: 40px !important;
+          margin-left: 20px !important;
+          background: #45c3d2 !important;
+          opacity: 0.7;
+          &:hover {
+            opacity: 1;
+          }
         }
-      }
 
-      .slick-next {
-        height: 45px !important;
-        width: 40px !important;
-        margin-right: 20px !important;
-        background: #45c3d2 !important;
-        opacity: 0.7;
-        &:hover {
-          opacity: 1;
+        .slick-next {
+          height: 45px !important;
+          width: 40px !important;
+          margin-right: 20px !important;
+          background: #45c3d2 !important;
+          opacity: 0.7;
+          &:hover {
+            opacity: 1;
+          }
         }
       }
     }
