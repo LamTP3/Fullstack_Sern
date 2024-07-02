@@ -3,6 +3,15 @@ import { connect } from "react-redux";
 import "./TableManageUser.scss";
 import * as actions from "../../../store/actions";
 
+import MarkdownIt from "markdown-it";
+import MdEditor from "react-markdown-editor-lite";
+import "react-markdown-editor-lite/lib/index.css";
+const mdParser = new MarkdownIt();
+
+function handleEditorChange({ html, text }) {
+  console.log("handleEditorChange", html, text);
+}
+
 class TableManageUser extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +23,7 @@ class TableManageUser extends Component {
   async componentDidMount() {
     this.props.fecthUserRedux();
   }
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (prevProps.userData !== this.props.userData) {
       this.setState({
@@ -25,9 +35,11 @@ class TableManageUser extends Component {
   handleDeleteUser = (id) => {
     this.props.deleteUserRedux(id);
   };
+
   handleEditUser = (item) => {
     this.props.onEdit(item);
   };
+
   render() {
     const { userData } = this.state;
     return (
@@ -76,6 +88,13 @@ class TableManageUser extends Component {
             )}
           </tbody>
         </table>
+        <div className="mt-5">
+          <MdEditor
+            style={{ height: "500px" }}
+            renderHTML={(text) => mdParser.render(text)}
+            onChange={handleEditorChange}
+          />
+        </div>
       </div>
     );
   }

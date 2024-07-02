@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import "./Section.scss";
 import { LANGUAGE } from "../../../utils/constant";
+import { FormattedMessage } from "react-intl";
 
 class Section extends Component {
   render() {
@@ -12,7 +13,7 @@ class Section extends Component {
       this.props;
 
     let settings = {
-      infinite: true,
+      infinite: false,
       speed: 500,
       slidesToShow: 4,
       slidesToScroll: 1,
@@ -24,7 +25,9 @@ class Section extends Component {
           <div className="section-container">
             <div className="section-header">
               <span className="title-section">{title}</span>
-              <button className="btn-section">Xem thêm</button>
+              <button className="btn-section">
+                <FormattedMessage id={"homepage.more"} />
+              </button>
             </div>
             <div className="section-body">
               <Slider {...settings}>
@@ -33,7 +36,7 @@ class Section extends Component {
                   let nameEN = `${item.positionData?.valueEn}, ${item.firstName} ${item.lastName}`;
                   let imageBase64;
                   if (item.image) {
-                    imageBase64 = new Buffer(item.image, "base64").toString(
+                    imageBase64 = Buffer.from(item.image, "base64").toString(
                       "binary"
                     );
                   }
@@ -53,13 +56,22 @@ class Section extends Component {
                         />
                       </div>
                       <div className="position text-center">
-                        {this.props.doctor && (
+                        {/* {this.props.doctor && (
                           <div>
                             {language === LANGUAGE.VI ? nameVi : nameEN}
                           </div>
+                        )                    
+                        } */}
+                        {this.props.doctor ? (
+                          <div>
+                            {language === LANGUAGE.VI ? nameVi : nameEN}
+                          </div>
+                        ) : (
+                          <>
+                            <div>{item.name}</div>
+                            <div>{item.specialty}</div>
+                          </>
                         )}
-                        <div>{item.name}</div>
-                        <div>{item.specialty}</div>
                       </div>
                     </div>
                   );

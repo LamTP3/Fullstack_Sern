@@ -10,6 +10,7 @@ import IMG3 from "../../assets/doctor/avatar.png";
 import IMG4 from "../../assets/handbook/img4.jpeg";
 import "./HomePage.scss";
 import * as action from "../../store/actions";
+import { injectIntl } from "react-intl";
 class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -64,6 +65,7 @@ class HomePage extends Component {
   render() {
     // let test = this?.state?.arrDoctor;
     // test = test.concat(test).concat(test);
+    const { intl } = this.props;
     return (
       <>
         <HomeHeader />
@@ -80,7 +82,10 @@ class HomePage extends Component {
           data={this.data2}
         />
         <Specialty
-          title="Bác sĩ nổi bật tuần qua"
+          // title="Bác sĩ nổi bật tuần qua"
+          title={intl.formatMessage({
+            id: "homepage.outstanding-doctor",
+          })}
           bg_Color="#eee"
           // bg_Color="#f5f5f5"
           image={IMG3}
@@ -106,7 +111,7 @@ class HomePage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.user.isLoggedIn,
+    language: state.app.language,
     topDoctor: state.admin.topDoctor,
   };
 };
@@ -117,4 +122,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(injectIntl(HomePage));

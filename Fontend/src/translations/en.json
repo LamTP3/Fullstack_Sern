@@ -10,9 +10,16 @@
         "check-health": "General health check",
         "support": "Support"
     },
+
+    "homepage": {
+        "outstanding-doctor": "Top doctor last week",
+        "more":"More information"
+    },
+
     "system-header": {
         "welcome": "Hello, "
     },
+
     "banner": {
         "title1": "MEDICAL FOUNDATION",
         "title2": "COMPREHENSIVE HEALTH CARE",
@@ -24,6 +31,7 @@
         "mental-health": "Mental health",
         "tooth-check": "Dental examination"
     },
+
     "menu": {
         "system": {
             "header": "Hệ thống",
