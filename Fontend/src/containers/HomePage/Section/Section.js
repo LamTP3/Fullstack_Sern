@@ -8,7 +8,7 @@ import { LANGUAGE } from "../../../utils/constant";
 
 class Section extends Component {
   render() {
-    const { bg_Color, title, data, image, img_width, img_height, img_radius } =
+    const { bg_Color, title, data, img_width, img_height, img_radius } =
       this.props;
 
     let settings = {
@@ -29,15 +29,23 @@ class Section extends Component {
             <div className="section-body">
               <Slider {...settings}>
                 {data?.map((item) => {
-                  let nameVi = `${item.positionData?.valueVi}, ${item.lastName} ${item.firstName}`;
+                  let nameVi = `${item.positionData?.valueVi}, ${item.firstName} ${item.lastName}`;
                   let nameEN = `${item.positionData?.valueEn}, ${item.firstName} ${item.lastName}`;
+                  let imageBase64;
+                  if (item.image) {
+                    imageBase64 = new Buffer(item.image, "base64").toString(
+                      "binary"
+                    );
+                  }
                   return (
                     <div key={item.id} className="section-customie">
                       <div className="outer_bg">
                         <div
                           className="bg-image"
                           style={{
-                            backgroundImage: image ? `url(${image})` : "",
+                            backgroundImage: imageBase64
+                              ? `url(${imageBase64})`
+                              : "",
                             width: img_width,
                             height: img_height,
                             borderRadius: img_radius,
@@ -45,7 +53,11 @@ class Section extends Component {
                         />
                       </div>
                       <div className="position text-center">
-                        <div>{language === LANGUAGE.VI ? nameVi : nameEN}</div>
+                        {this.props.doctor && (
+                          <div>
+                            {language === LANGUAGE.VI ? nameVi : nameEN}
+                          </div>
+                        )}
                         <div>{item.name}</div>
                         <div>{item.specialty}</div>
                       </div>

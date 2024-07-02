@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import "./TableManageUser.scss";
 import * as actions from "../../../store/actions";
-import { getAllUsers } from "../../../services/userService";
 
 class TableManageUser extends Component {
   constructor(props) {
@@ -22,17 +21,6 @@ class TableManageUser extends Component {
       });
     }
   }
-  displayAllUsers = async () => {
-    let response = await getAllUsers("ALL");
-    if (response && response.errCode === 0) {
-      this.setState({
-        arrUsers: response.users,
-        loading: false,
-      });
-    } else {
-      this.setState({ loading: false });
-    }
-  };
 
   handleDeleteUser = (id) => {
     this.props.deleteUserRedux(id);

@@ -45,7 +45,7 @@ class UserRedux extends Component {
         genderArr: this.props.genderRedux,
         form: {
           ...this.state.form,
-          gender: this.props?.genderRedux[0]?.key,
+          gender: this.props?.genderRedux[0]?.keyMap,
         },
       });
     }
@@ -54,7 +54,7 @@ class UserRedux extends Component {
       this.setState({
         form: {
           ...this.state.form,
-          roleId: this.props?.roleRedux[0]?.key,
+          roleId: this.props?.roleRedux[0]?.keyMap,
         },
       });
     }
@@ -63,7 +63,7 @@ class UserRedux extends Component {
       this.setState({
         form: {
           ...this.state.form,
-          positionId: this.props?.positionRedux[0]?.key,
+          positionId: this.props?.positionRedux[0]?.keyMap,
         },
       });
     }
@@ -82,11 +82,11 @@ class UserRedux extends Component {
           address: "",
           phonenumber: "",
           gender:
-            genderRedux && genderRedux.length > 0 ? genderRedux[0].key : "",
-          roleId: roleRedux && roleRedux.length > 0 ? roleRedux[0].key : "",
+            genderRedux && genderRedux.length > 0 ? genderRedux[0].keyMap : "",
+          roleId: roleRedux && roleRedux.length > 0 ? roleRedux[0].keyMap : "",
           positionId:
             positionRedux && positionRedux.length > 0
-              ? positionRedux[0].key
+              ? positionRedux[0].keyMap
               : "",
           image: "",
         },
@@ -319,7 +319,7 @@ class UserRedux extends Component {
                       positionRedux.length > 0 &&
                       positionRedux.map((item) => {
                         return (
-                          <option key={item.key} value={item.key}>
+                          <option key={item.keyMap} value={item.keyMap}>
                             {language === LANGUAGE.VI
                               ? item.valueVi
                               : item.valueEn}
@@ -348,7 +348,7 @@ class UserRedux extends Component {
                       gender.length > 0 &&
                       gender.map((item) => {
                         return (
-                          <option key={item.key} value={item.key}>
+                          <option key={item.keyMap} value={item.keyMap}>
                             {language === LANGUAGE.VI
                               ? item.valueVi
                               : item.valueEn}
@@ -379,7 +379,7 @@ class UserRedux extends Component {
                       roleRedux.length > 0 &&
                       roleRedux.map((item) => {
                         return (
-                          <option key={item.key} value={item.key}>
+                          <option key={item.keyMap} value={item.keyMap}>
                             {language === LANGUAGE.VI
                               ? item.valueVi
                               : item.valueEn}

@@ -62,8 +62,8 @@ class HomePage extends Component {
     }
   }
   render() {
-    let test = this?.state?.arrDoctor;
-    test = test.concat(test).concat(test);
+    // let test = this?.state?.arrDoctor;
+    // test = test.concat(test).concat(test);
     return (
       <>
         <HomeHeader />
@@ -84,7 +84,7 @@ class HomePage extends Component {
           bg_Color="#eee"
           // bg_Color="#f5f5f5"
           image={IMG3}
-          data={test}
+          data={this.state.arrDoctor}
           img_width="120px"
           img_height="120px"
           img_radius="50%"
