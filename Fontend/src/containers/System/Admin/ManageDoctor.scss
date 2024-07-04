@@ -6,11 +6,31 @@
     text-transform: uppercase;
     font-weight: 600;
   }
-  .btn-content-doctor {
+  .save-content-doctor {
     margin-top: 20px;
     margin-bottom: 30px;
     border-radius: 3px;
     outline: none;
+    border: none;
+    padding: 5px;
+    background: orange;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+  .create-content-doctor {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    padding: 5px;
+    background: rgb(11, 93, 216);
+    cursor: pointer;
+    &:hover {
+      opacity: 0.9;
+    }
   }
   .more-infor {
     display: flex;
