@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import "./TableManageUser.scss";
 import * as actions from "../../../store/actions";
 
 import MarkdownIt from "markdown-it";

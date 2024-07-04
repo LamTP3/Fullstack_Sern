@@ -6,11 +6,32 @@ import { setAppLanguage } from "../../../store/actions/appActions";
 import "./HomeHeader.scss";
 
 class HomeHeader extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      lang: "",
+    };
+  }
   handleChangeLanguage = (language) => {
     this.props.changeLanguageAppRedux(language);
   };
+
+  componentDidMount() {
+    this.setState({
+      lang: this.props.language,
+    });
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.language !== this.props.language) {
+      this.setState({
+        lang: this.props.language,
+      });
+    }
+  }
   render() {
-    const { intl, language } = this.props;
+    const { intl } = this.props;
+    const { lang } = this.state;
     return (
       <>
         <div className="home-header-container">
@@ -140,9 +161,7 @@ class HomeHeader extends Component {
               </div>
               <div
                 className={
-                  language === LANGUAGE.VI
-                    ? "language-vi active"
-                    : "language-vi"
+                  lang === LANGUAGE.VI ? "language-vi active" : "language-vi"
                 }
               >
                 <span onClick={() => this.handleChangeLanguage(LANGUAGE.VI)}>
@@ -151,9 +170,7 @@ class HomeHeader extends Component {
               </div>
               <div
                 className={
-                  language === LANGUAGE.EN
-                    ? "language-en active"
-                    : "language-en"
+                  lang === LANGUAGE.EN ? "language-en active" : "language-en"
                 }
               >
                 <span onClick={() => this.handleChangeLanguage(LANGUAGE.EN)}>

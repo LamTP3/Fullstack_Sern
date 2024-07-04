@@ -4,7 +4,7 @@ import { CommonUtils } from "../../../utils";
 import { connect } from "react-redux";
 import * as action from "../../../store/actions";
 import { FormattedMessage } from "react-intl";
-import TableManageUser from "./TableManageUser";
+import TableManageUser from "./TableUser";
 import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 import "./UserRedux.scss";
