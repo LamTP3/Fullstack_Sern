@@ -33,19 +33,9 @@
     },
 
     "menu": {
-        "system": {
-            "header": "Hệ thống",
-            "system-administrator": {
-                "header": "Quản trị hệ thống",
-                "user-manage": "Quản lý người sử dụng",
-                "user-redux": "Quản lý user redux"
-            },
-            "system-parameter": {
-                "header": "Tham số hệ thống"
-            }
-        },
+
         "admin": {
-            "manage-user": "Mange",
+            "manage-user": "User",
             "manage-doctor": "Manage Doctor",
             "manage-admin": "Manage Admin",
             "crud": "CRUD ",
@@ -56,6 +46,9 @@
             "manage-specialty": "Manage Specialty",
             "handbook": "Handbook",
             "manage-handbook": "Manage Handbook"
+        },
+        "doctor" : {
+            "manage-schedule": "Manage Doctor's schedule"
         }
     },
     "manage-user": {
