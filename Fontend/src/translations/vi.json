@@ -15,6 +15,12 @@
         "outstanding-doctor": "Bác sĩ nổi bật tuần qua",
         "more": "Xem thêm"
     },
+    "manage-schedule": {
+        "title": "Quản lý kế hoạch khám bệnh của bác sĩ",
+        "choose-doctor" :"Chọn bác sĩ",
+        "choose-date": "Chọn ngày",
+        "save":"Lưu thông tin"
+    },
 
     "system-header": {
         "welcome": "Xin chào, "

@@ -62,12 +62,7 @@ export const doctorMenu = [
       {
         //quản lý kế hoạch khám bệnh bác sĩ
         name: "menu.doctor.manage-schedule",
-        menus: [
-          {
-            name: "menu.doctor.manage-schedule",
-            link: "/doctor/manage-schedule",
-          },
-        ],
+        link: "/doctor/manage-schedule",
       },
     ],
   },

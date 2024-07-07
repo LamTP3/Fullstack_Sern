@@ -10,16 +10,19 @@
         "check-health": "General health check",
         "support": "Support"
     },
-
     "homepage": {
         "outstanding-doctor": "Top doctor last week",
-        "more":"More information"
+        "more": "More information"
     },
-
+    "manage-schedule": {
+        "title": "Manage Doctor's schedule",
+        "choose-doctor": "Choose Doctor",
+        "choose-date": "Choose Date",
+        "save": "Save"
+    },
     "system-header": {
         "welcome": "Hello, "
     },
-
     "banner": {
         "title1": "MEDICAL FOUNDATION",
         "title2": "COMPREHENSIVE HEALTH CARE",
@@ -31,9 +34,7 @@
         "mental-health": "Mental health",
         "tooth-check": "Dental examination"
     },
-
     "menu": {
-
         "admin": {
             "manage-user": "User",
             "manage-doctor": "Manage Doctor",
@@ -47,7 +48,7 @@
             "handbook": "Handbook",
             "manage-handbook": "Manage Handbook"
         },
-        "doctor" : {
+        "doctor": {
             "manage-schedule": "Manage Doctor's schedule"
         }
     },

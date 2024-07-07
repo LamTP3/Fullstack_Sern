@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import { push } from "connected-react-router";
 import * as actions from "../../store/actions";
 import "./Login.scss";
-// import { FormattedMessage } from "react-intl";
 import { handleLogin } from "../../services/userService";
 
 class Login extends Component {
@@ -35,7 +33,11 @@ class Login extends Component {
       isShowPassword: !this.state.isShowPassword,
     });
   };
-
+  handleKeyDown = (event) => {
+    if (event.key === "Enter" || event.keyCode === 13) {
+      this.handleLogin(event);
+    }
+  };
   handleLogin = async (event) => {
     event.preventDefault();
     try {
@@ -59,17 +61,14 @@ class Login extends Component {
   };
 
   componentDidMount() {
-    // create a timer to reset error message
     this.timer = setInterval(() => {
       this.setState({
         errMessage: "",
       });
-      // console.log("Reset error message");
     }, 20000);
   }
 
   componentWillUnmount() {
-    // clear the timer when the component is about to unmount
     if (this.timer) {
       clearInterval(this.timer);
     }
@@ -97,6 +96,7 @@ class Login extends Component {
               <div className="custom-input-password">
                 <input
                   onChange={this.handleOnChangePassword}
+                  onKeyDown={(event) => this.handleKeyDown(event)}
                   value={this.state.password}
                   type={this.state.isShowPassword ? "text" : "password"}
                   className="form-control mt-2"
@@ -147,7 +147,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // navigate: (path) => dispatch(push(path)),
     userLoginSuccess: (userInfo) =>
       dispatch(actions.userLoginSuccess(userInfo)),
   };

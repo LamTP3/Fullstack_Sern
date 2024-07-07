@@ -119,7 +119,7 @@ class HomeHeader extends Component {
                     <FormattedMessage id={"home-header.speciality"} />
                   </b>
                 </div>
-                <div className="subs-title  modified-fixed">
+                <div className="subs-title">
                   <FormattedMessage id={"home-header.search-doctor"} />
                 </div>
               </div>
@@ -139,7 +139,7 @@ class HomeHeader extends Component {
                     <FormattedMessage id={"home-header.doctor"} />
                   </b>
                 </div>
-                <div className="subs-title modified">
+                <div className="subs-title">
                   <FormattedMessage id={"home-header.select-doctor"} />
                 </div>
               </div>
@@ -149,7 +149,7 @@ class HomeHeader extends Component {
                     <FormattedMessage id={"home-header.fee"} />
                   </b>
                 </div>
-                <div className="subs-title">
+                <div className="subs-title ">
                   <FormattedMessage id={"home-header.check-health"} />
                 </div>
               </div>

@@ -2,7 +2,7 @@
   .intro-doctor {
     display: flex;
     height: 150px;
-    margin: 0 100px;
+    margin-left: 100px;
 
     .content-left {
       width: 30%;
@@ -29,10 +29,23 @@
     }
   }
   .detail-infor-doctor {
+    margin-top: 10px;
     padding: 20px 100px;
     background-color: #f9f9f9;
     img {
       width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 775px) {
+    .intro-doctor {
+      margin-left: 0px;
+    }
+  }
+  @media screen and (max-width: 775px) {
+    .detail-infor-doctor {
+      margin-top: 25px;
+      padding: 20px 30px;
     }
   }
 }
