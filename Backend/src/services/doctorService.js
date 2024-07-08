@@ -162,26 +162,15 @@ let bulkCreateScheduleService = (data) => {
           });
         }
 
-        //get all exsiting data
         let exsiting = await db.Schedule.findAll({
           where: { doctorId: data.doctorId, date: data.date },
           attributes: [`timeType`, "date", "doctorId", "maxNumber"],
         });
 
-        //convert data
-        if (exsiting && exsiting.length > 0) {
-          exsiting = exsiting.map((item) => {
-            item.date = new Date(item.date).getTime();
-            return item;
-          });
-        }
-
-        //compare different
         let toCreate = _.differenceWith(schedule, exsiting, (a, b) => {
-          return a.timeType === b.timeType && a.date === b.date;
+          return a.timeType === b.timeType && a.date.toString() === b.date;
         });
 
-        //create data
         if (toCreate && toCreate.length > 0) {
           await db.Schedule.bulkCreate(toCreate);
         }
@@ -196,6 +185,33 @@ let bulkCreateScheduleService = (data) => {
     }
   });
 };
+let getScheduleDoctorByDateService = (doctorId, date) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      // console.log(`Check id: `, doctorId, " & date: ", date);
+      if (!doctorId || !date) {
+        resolve({
+          errCode: 1,
+          errMessage: "Missing required parameter!!!",
+        });
+      } else {
+        let dataSchedule = await db.Schedule.findAll({
+          where: {
+            doctorId: doctorId,
+            date: date,
+          },
+        });
+        if (!dataSchedule) dataSchedule = [];
+        resolve({
+          errCode: 0,
+          data: dataSchedule,
+        });
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 
 module.exports = {
   getTopDoctorHome: getTopDoctorHome,
@@ -203,4 +219,5 @@ module.exports = {
   saveDetailInforDoctor: saveDetailInforDoctor,
   getDetailDoctorByIdService: getDetailDoctorByIdService,
   bulkCreateScheduleService: bulkCreateScheduleService,
+  getScheduleDoctorByDateService: getScheduleDoctorByDateService,
 };

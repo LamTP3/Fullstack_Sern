@@ -5,11 +5,11 @@ import Select from "react-select";
 import "./ManageSchedule.scss";
 import * as actions from "../../../store/actions";
 import DatePicker from "../../../components/Input/DatePicker";
-import moment from "moment";
+
 import { LANGUAGE } from "../../../utils";
 import { toast } from "react-toastify";
 import _ from "lodash";
-import { DATE_FORMAT } from "../../../utils";
+
 import { saveBulkScheduleDoctor } from "../../../services/userService";
 
 class ManageSchedule extends Component {
@@ -94,9 +94,8 @@ class ManageSchedule extends Component {
       toast.error("Invaild selected doctor");
       return;
     }
-    // let formatDate = moment(currentDate).format(DATE_FORMAT.SEND_TO_SERVER);
-    let formatDate = new Date(currentDate).getTime();
-    console.log(`Check fomat:`, formatDate);
+    currentDate.setHours(0, 0, 0, 0);
+    let formatDate = currentDate.getTime();
     if (rangeTime && rangeTime.length > 0) {
       let selectedTime = rangeTime.filter((item) => item.isSelected === true);
       if (selectedTime && selectedTime.length > 0) {
@@ -118,7 +117,6 @@ class ManageSchedule extends Component {
       doctorId: selectedDoctor.value,
       date: formatDate,
     });
-    console.log(`Check res: `, res);
   };
 
   render() {
