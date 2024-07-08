@@ -10,6 +10,8 @@ import { LANGUAGE } from "../../../utils";
 import { toast } from "react-toastify";
 import _ from "lodash";
 import { DATE_FORMAT } from "../../../utils";
+import { saveBulkScheduleDoctor } from "../../../services/userService";
+
 class ManageSchedule extends Component {
   constructor(props) {
     super(props);
@@ -32,7 +34,6 @@ class ManageSchedule extends Component {
     );
   };
   handleOnChangeDatePicker = (date) => {
-    console.log(`Check date: `, date);
     this.setState({
       currentDate: date[0],
     });
@@ -82,9 +83,9 @@ class ManageSchedule extends Component {
     }
   };
 
-  handleSaveSchedule = () => {
+  handleSaveSchedule = async () => {
     let { rangeTime, selectedDoctor, currentDate } = this.state;
-    let reuslt = [];
+    let scheduleResult = [];
     if (!currentDate) {
       toast.error("Invalid date");
       return;
@@ -93,8 +94,9 @@ class ManageSchedule extends Component {
       toast.error("Invaild selected doctor");
       return;
     }
-    let formatDate = moment(currentDate).format(DATE_FORMAT.SEND_TO_SERVER);
-
+    // let formatDate = moment(currentDate).format(DATE_FORMAT.SEND_TO_SERVER);
+    let formatDate = new Date(currentDate).getTime();
+    console.log(`Check fomat:`, formatDate);
     if (rangeTime && rangeTime.length > 0) {
       let selectedTime = rangeTime.filter((item) => item.isSelected === true);
       if (selectedTime && selectedTime.length > 0) {
@@ -102,14 +104,21 @@ class ManageSchedule extends Component {
           let object = {};
           object.doctorId = selectedDoctor.value;
           object.date = formatDate;
-          object.time = schedule.keyMap;
-          reuslt.push(object);
+          object.timeType = schedule.keyMap;
+          scheduleResult.push(object);
         });
       } else {
         toast.error("Invalid selected time");
         return;
       }
     }
+
+    let res = await saveBulkScheduleDoctor({
+      arrSchedule: scheduleResult,
+      doctorId: selectedDoctor.value,
+      date: formatDate,
+    });
+    console.log(`Check res: `, res);
   };
 
   render() {
