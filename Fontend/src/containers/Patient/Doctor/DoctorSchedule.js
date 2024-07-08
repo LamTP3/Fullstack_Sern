@@ -15,6 +15,7 @@ class DoctorSchedule extends Component {
     super(props);
     this.state = {
       allDays: [],
+      allAvailableTime: [],
     };
   }
   async componentDidMount() {
@@ -27,14 +28,20 @@ class DoctorSchedule extends Component {
     for (let i = 0; i < 7; i++) {
       let object = {};
       if (language === LANGUAGE.VI) {
-        object.label = moment(new Date()).add(i, "days").format("ddd - DD/MM");
+        let firstLetter = moment(new Date())
+          .add(i, "days")
+          .format("dddd - DD/MM")
+          .charAt(0)
+          .toUpperCase();
+        object.label =
+          firstLetter +
+          moment(new Date()).add(i, "days").format("dddd - DD/MM").slice(1);
       } else {
         object.label = moment(new Date())
           .add(i, "days")
           .locale(`en`)
           .format("ddd - DD/MM");
       }
-
       // dùng startOf để lấy date là (2024-07-09 00:00:00)
       // ta không lấy thới gian  00:00:00 vì database ta không lưu
       object.value = moment(new Date()).add(i, "days").startOf(`day`).valueOf();
@@ -46,11 +53,16 @@ class DoctorSchedule extends Component {
     });
   };
 
-  onChangeSelect = async (event) => {
+  handleOnChangeSelect = async (event) => {
     let id = this.props?.detailDoctor?.id;
     let date = event.target.value;
     let res = await getScheduleDoctorByDateService(id, date);
-    console.log(`Check: `, res);
+    console.log(`Check: `, res.data);
+    if (res && res.errCode === 0) {
+      this.setState({
+        allAvailableTime: res?.data ? res?.data : [],
+      });
+    }
   };
 
   componentDidUpdate(prevProps, prveState, snapshot) {
@@ -59,12 +71,13 @@ class DoctorSchedule extends Component {
     }
   }
   render() {
-    let { allDays } = this.state;
+    let { allDays, allAvailableTime } = this.state;
+    let { lang } = this.props;
     return (
       <>
         <div className="doctor-schedule-container">
           <div className="all-schedule">
-            <select onChange={(event) => this.onChangeSelect(event)}>
+            <select onChange={(event) => this.handleOnChangeSelect(event)}>
               {allDays &&
                 allDays.length > 0 &&
                 allDays.map((item, index) => {
@@ -76,7 +89,27 @@ class DoctorSchedule extends Component {
                 })}
             </select>
           </div>
-          <div className="all-available-time"></div>
+          <div className="all-available-time">
+            <div className="text-clendar">
+              <i className="fas fa-calendar-alt">
+                <span> Lịch khám </span>
+              </i>
+            </div>
+            <div className="time-content">
+              {allAvailableTime && allAvailableTime.length > 0 ? (
+                allAvailableTime.map((item, index) => {
+                  let timeDisplay =
+                    lang === LANGUAGE.VI
+                      ? item.timeTypeData.valueVi
+                      : item.timeTypeData.valueEn;
+
+                  return <button key={index}>{timeDisplay}</button>;
+                })
+              ) : (
+                <div>Không có lịch hẹn trong khoảng thời gian này</div>
+              )}
+            </div>
+          </div>
         </div>
       </>
     );

@@ -188,7 +188,6 @@ let bulkCreateScheduleService = (data) => {
 let getScheduleDoctorByDateService = (doctorId, date) => {
   return new Promise(async (resolve, reject) => {
     try {
-      // console.log(`Check id: `, doctorId, " & date: ", date);
       if (!doctorId || !date) {
         resolve({
           errCode: 1,
@@ -200,6 +199,15 @@ let getScheduleDoctorByDateService = (doctorId, date) => {
             doctorId: doctorId,
             date: date,
           },
+          include: [
+            {
+              model: db.Allcode,
+              as: "timeTypeData",
+              attributes: ["valueEn", "valueVi"],
+            },
+          ],
+          raw: false,
+          nest: true,
         });
         if (!dataSchedule) dataSchedule = [];
         resolve({
