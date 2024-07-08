@@ -15,6 +15,7 @@
         "outstanding-doctor": "Bác sĩ nổi bật tuần qua",
         "more": "Xem thêm"
     },
+
     "manage-schedule": {
         "title": "Quản lý kế hoạch khám bệnh của bác sĩ",
         "choose-doctor" :"Chọn bác sĩ",
@@ -73,6 +74,16 @@
         "save": "Lưu User",
         "edit": "Lưu thay đổi"
 
+    },
+
+    "patient": {
+        "detail-doctor": {
+            "schedule":"Lịch khám",
+            "no-schedule":"Bác sĩ không có lịch hẹn trong khoảng thời gian này, vui lòng chọn thời gian khác",
+            "choose": "Chọn ",
+            "book-free" :" và đặt (miễn phí)"
+        
+        }
     }
 
 }

@@ -65,5 +65,13 @@
         "position": "Position",
         "save": "Save",
         "edit": "Edit User"
+    },
+    "patient": {
+        "detail-doctor": {
+            "schedule":"Schedule",
+            "no-schedule": "The doctor don't have an appointment during this time, please choose another time",
+                        "choose": "Choose ",
+            "book-free" :" and book (free)"
+        }
     }
 }

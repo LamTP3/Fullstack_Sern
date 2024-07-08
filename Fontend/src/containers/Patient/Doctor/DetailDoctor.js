@@ -10,10 +10,14 @@ class DetailDoctor extends Component {
     super(props);
     this.state = {
       detailDoctor: {},
+      currentDoctorId: -1,
     };
   }
   async componentDidMount() {
     let id = this.props?.match?.params?.id;
+    this.setState({
+      currentDoctorId: id,
+    });
     let res = await getDetailInforDoctor(id);
     if (res && res.errCode === 0) {
       this.setState({
@@ -24,7 +28,7 @@ class DetailDoctor extends Component {
 
   componentDidUpdate(prevProps, prveState, snapshot) {}
   render() {
-    let { detailDoctor } = this.state;
+    let { detailDoctor, currentDoctorId } = this.state;
     let { lang } = this.props;
     let nameVi = "";
     let nameEN = "";
@@ -56,7 +60,7 @@ class DetailDoctor extends Component {
           </div>
           <div className="schedule-doctor">
             <div className="content-left">
-              <DoctorSchedule detailDoctor={detailDoctor} />
+              <DoctorSchedule currentDoctorId={currentDoctorId} />
             </div>
             <div className="content-right"></div>
           </div>
