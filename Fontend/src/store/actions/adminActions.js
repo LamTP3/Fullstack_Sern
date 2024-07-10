@@ -172,7 +172,6 @@ export const fetchTopDoctor = () => {
   return async (dispatch, getState) => {
     try {
       let res = await getTopDoctorHomeService("");
-      // console.log("Check data: ", res);
       if (res && res.errCode === 0) {
         dispatch({
           type: actionTypes.FETCH_TOP_DOCTOR_SUCCESS,
@@ -217,12 +216,14 @@ export const saveDetailDoctor = (data) => {
   return async (dispatch, getState) => {
     try {
       let res = await saveDetailDoctorService(data);
+      console.log(`Check res: `, res);
       if (res && res.errCode === 0) {
         toast.success(`Save doctor detail success`);
         dispatch({
           type: actionTypes.SAVE_DETAIL_DOCTOR_SUCCESS,
         });
       } else {
+        console.log(`Problem has: `, res);
         toast.error(`Save doctor detail error`);
         dispatch({
           type: actionTypes.SAVE_DETAIL_DOCTOR_FAILED,
@@ -259,3 +260,42 @@ export const fetchAllScheduleTime = () => {
     }
   };
 };
+
+export const getRequiredDoctorInfor = () => {
+  return async (dispatch, getState) => {
+    try {
+      let resPrice = await getAllCodeService("PRICE");
+      let resPayment = await getAllCodeService("PAYMENT");
+      let resProvince = await getAllCodeService("PROVINCE");
+      if (
+        resPrice &&
+        resPrice.errCode === 0 &&
+        resPayment &&
+        resPayment.errCode === 0 &&
+        resProvince &&
+        resProvince.errCode === 0
+      ) {
+        let data = {
+          resPrice: resPrice.data,
+          resPayment: resPayment.data,
+          resProvince: resProvince.data,
+        };
+        dispatch(fetchRequiredDoctorrInforSuccess(data));
+      } else {
+        dispatch(fetchRequiredDoctorrInforFailed());
+      }
+    } catch (e) {
+      dispatch(fetchRequiredDoctorrInforFailed());
+      console.log(e);
+    }
+  };
+};
+
+export const fetchRequiredDoctorrInforSuccess = (data) => ({
+  type: actionTypes.FETCH_REQUIRED_DOCTOR_INFOR_SUCCESS,
+  data: data,
+});
+
+export const fetchRequiredDoctorrInforFailed = () => ({
+  type: actionTypes.FETCH_REQUIRED_DOCTOR_INFOR_FAILED,
+});

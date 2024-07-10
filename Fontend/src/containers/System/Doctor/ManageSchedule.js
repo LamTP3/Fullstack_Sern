@@ -117,6 +117,9 @@ class ManageSchedule extends Component {
       doctorId: selectedDoctor.value,
       date: formatDate,
     });
+    if (res && res.errCode === 0) {
+      toast.success(`Create success`);
+    }
   };
 
   render() {
@@ -136,7 +139,7 @@ class ManageSchedule extends Component {
                   <FormattedMessage id="manage-schedule.choose-doctor" />
                 </label>
                 <Select
-                  // value={this.state.selectedDoctor}
+                  value={this.state.selectedDoctor}
                   onChange={this.findDoctor}
                   options={this.state.listDoctors}
                 />

@@ -84,6 +84,22 @@
             "book-free" :" và đặt (miễn phí)"
         
         }
+    },
+    "admin": {
+        "manage-doctor": {
+            "title": "Tạo thêm thông tin doctors",
+            "select-doctor":"Chọn bác sĩ",
+            "intro": "Thông tin giới thiệu",
+            "add": "Tạo thông tin",
+            "save": "Lưu thông tin",
+            "price": "Chọn giá khám",
+            "payment": "Chọn phương thức thanh toán",
+            "province": "Chọn tỉnh thành",
+            "name-clinic": "Tên phòng khám",
+            "address-clinic": "Địa chỉ phòng khám",
+            "note": "Ghi chú"
+
+        }
     }
 
 }

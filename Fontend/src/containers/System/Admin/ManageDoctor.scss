@@ -35,12 +35,19 @@
   .more-infor {
     display: flex;
     gap: 15px;
-    padding-bottom: 15px;
+    padding: 0px 10px 15px 10px;
     .content-left {
       width: 40%;
     }
     .content-right {
       width: 60%;
     }
+  }
+
+  .more-infor-extra {
+    padding: 0px 10px 15px 10px;
+  }
+  .manage-doctor-editor {
+    margin-top: 10px;
   }
 }

@@ -67,7 +67,7 @@ class UserRedux extends Component {
         },
       });
     }
-
+    // code dưới dùng để set lại state khi submit form
     if (prevProps.userData !== this.props.userData) {
       let { genderRedux, roleRedux, positionRedux } = this.props;
       this.setState({
@@ -98,7 +98,6 @@ class UserRedux extends Component {
     let file = e.target.files[0];
     if (file) {
       let base64 = await CommonUtils.getBase64(file);
-      // console.log("Check Image: ", base64);
       let obeject = URL.createObjectURL(file);
       this.setState({
         previewImgURL: obeject,
@@ -148,7 +147,6 @@ class UserRedux extends Component {
         gender: user.gender,
         roleId: user.roleId,
         image: imageBase64,
-        // image: user.image,
       },
     });
   };
@@ -427,10 +425,7 @@ class UserRedux extends Component {
               </button>
             </form>
 
-            <TableManageUser
-              onEdit={this.handleEditUserFromParent}
-              // action={this.props.action}
-            />
+            <TableManageUser onEdit={this.handleEditUserFromParent} />
           </div>
         </div>
         {this.state.isOpen === true && (
