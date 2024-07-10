@@ -1,6 +1,7 @@
+import { where } from "sequelize";
 import db from "../models/index";
 require(`dotenv`).config();
-import _ from "lodash";
+import _, { reject } from "lodash";
 const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE;
 
 let getTopDoctorHome = (limit) => {
@@ -282,6 +283,53 @@ let getScheduleDoctorByDateService = (doctorId, date) => {
   });
 };
 
+let getExtraInforDoctortByIdService = (doctorId) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!doctorId) {
+        resolve({
+          errCode: 1,
+          errMessage: "Missing id parameter !",
+        });
+      } else {
+        let data = await db.Doctor_Infor.findOne({
+          where: { doctorId: doctorId },
+          attributes: {
+            exclude: [`id`, "doctorId", "createdAt", "updatedAt"],
+          },
+          include: [
+            {
+              model: db.Allcode,
+              as: "priceTypeData",
+              attributes: [`valueEn`, `valueVi`],
+            },
+            {
+              model: db.Allcode,
+              as: "provinceTypeData",
+              attributes: [`valueEn`, `valueVi`],
+            },
+            {
+              model: db.Allcode,
+              as: "paymentTypeData",
+              attributes: [`valueEn`, `valueVi`],
+            },
+          ],
+          raw: false,
+          nest: true,
+        });
+
+        if (!data) data = {};
+        resolve({
+          errCode: 0,
+          data: data,
+        });
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 module.exports = {
   getTopDoctorHome: getTopDoctorHome,
   getAllDoctors: getAllDoctors,
@@ -289,4 +337,5 @@ module.exports = {
   getDetailDoctorByIdService: getDetailDoctorByIdService,
   bulkCreateScheduleService: bulkCreateScheduleService,
   getScheduleDoctorByDateService: getScheduleDoctorByDateService,
+  getExtraInforDoctortByIdService: getExtraInforDoctortByIdService,
 };

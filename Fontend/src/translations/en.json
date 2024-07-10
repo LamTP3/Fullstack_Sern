@@ -71,7 +71,12 @@
             "schedule":"Schedule",
             "no-schedule": "The doctor don't have an appointment during this time, please choose another time",
                         "choose": "Choose ",
-            "book-free" :" and book (free)"
+            "book-free" :" and book (free)",
+            "show": "Show detail",
+            "hide": "Hide detail",
+            "price": "Price",
+            "payment" : "Patient can pay by"
+        
         }
     },
     "admin": {

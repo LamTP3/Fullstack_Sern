@@ -1,6 +1,9 @@
 .doctor-extra-infor-container {
   padding: 0px 0px 0px 15px;
   margin-right: 150px;
+  @media screen and( max-width: 1020px) {
+    margin-right: 0px;
+  }
   .content-up {
     .text-address {
       text-transform: uppercase;
@@ -51,10 +54,8 @@
       }
     }
     .show-price {
-      span {
-        color: rgba(72, 196, 211, 1);
-        cursor: pointer;
-      }
+      color: rgba(72, 196, 211, 1);
+      cursor: pointer;
     }
   }
 }

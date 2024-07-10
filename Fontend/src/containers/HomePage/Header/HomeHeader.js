@@ -22,13 +22,13 @@ class HomeHeader extends Component {
     });
   }
 
-  // componentDidUpdate(prevProps, prevState, snapshot) {
-  //   if (prevProps.language !== this.props.language) {
-  //     this.setState({
-  //       lang: this.props.language,
-  //     });
-  //   }
-  // }
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.language !== this.props.language) {
+      this.setState({
+        lang: this.props.language,
+      });
+    }
+  }
 
   render() {
     const { intl, showBanner } = this.props;

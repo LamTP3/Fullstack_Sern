@@ -81,7 +81,11 @@
             "schedule":"Lịch khám",
             "no-schedule":"Bác sĩ không có lịch hẹn trong khoảng thời gian này, vui lòng chọn thời gian khác",
             "choose": "Chọn ",
-            "book-free" :" và đặt (miễn phí)"
+            "book-free" :" và đặt (miễn phí)",
+            "show": "Xem chi tiết",
+            "hide": "Ẩn bảng giá",
+            "price": "Giá Khám",
+            "payment" : "Người bệnh có thể thanh toán chi phí bằng hình thức"
         
         }
     },
