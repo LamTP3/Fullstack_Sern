@@ -100,7 +100,6 @@ let saveDetailInforDoctor = (inputData) => {
         }
 
         //upsert to Doctor_infor table
-
         let doctorInfor = await db.Doctor_Infor.findOne({
           where: {
             doctorId: inputData.doctorId,
@@ -154,7 +153,7 @@ let getDetailDoctorByIdService = (id) => {
         let data = await db.User.findOne({
           where: { id: id },
           attributes: {
-            exclude: ["password"],
+            exclude: ["password", "updatedAt", "createdAt"],
           },
           include: [
             {
@@ -165,6 +164,29 @@ let getDetailDoctorByIdService = (id) => {
               model: db.Allcode,
               as: "positionData",
               attributes: ["valueEn", "valueVi"],
+            },
+            {
+              model: db.Doctor_Infor,
+              attributes: {
+                exclude: [`id`, "doctorId", "createdAt", "updatedAt"],
+              },
+              include: [
+                {
+                  model: db.Allcode,
+                  as: "priceTypeData",
+                  attributes: [`valueEn`, `valueVi`],
+                },
+                {
+                  model: db.Allcode,
+                  as: "provinceTypeData",
+                  attributes: [`valueEn`, `valueVi`],
+                },
+                {
+                  model: db.Allcode,
+                  as: "paymentTypeData",
+                  attributes: [`valueEn`, `valueVi`],
+                },
+              ],
             },
           ],
           raw: false,
