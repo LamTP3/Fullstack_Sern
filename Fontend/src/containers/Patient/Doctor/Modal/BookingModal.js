@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import { FormattedMessage } from "react-intl";
 import { Modal } from "reactstrap";
 import "./BookingModal.scss";
 import ProfileDoctor from "../ProfileDoctor";
@@ -17,6 +16,7 @@ class BookingModal extends Component {
   }
   render() {
     let { isOpenModal, closeBookingModal, dataTime } = this.props;
+
     return (
       <>
         <Modal
@@ -35,7 +35,11 @@ class BookingModal extends Component {
             </div>
             <div className="booking-modal-body container">
               <div className="doctor-infor">
-                <ProfileDoctor doctorId={dataTime.doctorId} />
+                <ProfileDoctor
+                  doctorId={dataTime.doctorId}
+                  isShowDescriptionDoctor={false}
+                  dataTime={dataTime}
+                />
               </div>
 
               <div className="row">

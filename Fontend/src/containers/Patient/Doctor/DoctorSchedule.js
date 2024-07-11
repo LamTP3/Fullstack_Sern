@@ -47,6 +47,8 @@ class DoctorSchedule extends Component {
           let today = "Hôm nay - " + ddMM;
           object.label = today;
         } else {
+          // biến kí tự đầu tiên của một chữ tiếng việt thành chữ hoa
+
           let firstLetter = moment(new Date())
             .add(i, "days")
             .format("dddd - DD/MM")
@@ -102,7 +104,6 @@ class DoctorSchedule extends Component {
       isOpenModalBooking: true,
       dataScheduleTimeModal: time,
     });
-    console.log(`Check: `, time);
   };
 
   closeBookingModal = () => {

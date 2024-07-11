@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import { FormattedMessage } from "react-intl";
+import "moment/locale/vi";
 import { getProfileDoctorService } from "../../../services/userService";
 import "./ProfileDoctor.scss";
 import { LANGUAGE } from "../../../utils/constant";
 import NumberFormat from "react-number-format";
+import _ from "lodash";
+import moment from "moment";
 class ProfileDoctor extends Component {
   constructor(props) {
     super(props);
@@ -35,18 +37,47 @@ class ProfileDoctor extends Component {
     if (this.props.language !== prevProps.language) {
     }
   }
+
+  renderTimeBooking = (dataTime) => {
+    let { language } = this.props;
+    console.log("Check inside time booking: ", dataTime);
+
+    if (dataTime && !_.isEmpty(dataTime)) {
+      let time =
+        language === LANGUAGE.VI
+          ? dataTime.timeTypeData.valueVi
+          : dataTime.timeTypeData.valueEn;
+      let date =
+        language === LANGUAGE.VI
+          ? // date của dateTime được lưu dưới database là một string chứ
+            // không phải timeStamp tuy nhiên +dataTime.date
+            // (dấu + ở đây có tác dụng chuyển string sang số nguyên)
+            moment(+dataTime.date).format("dddd - DD/MM/YYYY")
+          : moment(+dataTime.date).locale("en").format("ddd - MM/DD/YYYY");
+      return (
+        <>
+          <div>
+            {time} - {date}
+          </div>
+          <div> Miễn phí đặt lịch</div>
+        </>
+      );
+    }
+    return <></>;
+  };
+
   render() {
     let { dataProfile } = this.state;
-    let { language } = this.props;
+    let { language, isShowDescriptionDoctor, dataTime } = this.props;
     let nameVi = "";
     let nameEN = "";
     if (dataProfile && dataProfile.positionData) {
       nameVi = `${dataProfile.positionData?.valueVi}, ${dataProfile.firstName} ${dataProfile.lastName}`;
       nameEN = `${dataProfile.positionData?.valueEn}, ${dataProfile.firstName} ${dataProfile.lastName}`;
     }
+
     return (
       <>
-        {" "}
         <div className="intro-doctor">
           <div
             className="content-left"
@@ -59,8 +90,14 @@ class ProfileDoctor extends Component {
               {language === LANGUAGE.EN ? nameEN : nameVi}
             </div>
             <div className="down">
-              {dataProfile?.Markdown?.description && (
-                <span>{dataProfile?.Markdown?.description}</span>
+              {isShowDescriptionDoctor === true ? (
+                <>
+                  {dataProfile?.Markdown?.description && (
+                    <span>{dataProfile?.Markdown?.description}</span>
+                  )}
+                </>
+              ) : (
+                <>{this.renderTimeBooking(dataTime)}</>
               )}
             </div>
           </div>
