@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { FormattedMessage } from "react-intl";
+// import { FormattedMessage } from "react-intl";
 import { Modal } from "reactstrap";
 import "./BookingModal.scss";
+import ProfileDoctor from "../ProfileDoctor";
 class BookingModal extends Component {
   constructor(props) {
     super(props);
@@ -33,9 +34,10 @@ class BookingModal extends Component {
               </span>
             </div>
             <div className="booking-modal-body container">
-              {/* {JSON.stringify(dataTime)} */}
-              <div className="doctor-infor"></div>
-              <div className="price">Giá khám : 500.000 VND</div>
+              <div className="doctor-infor">
+                <ProfileDoctor doctorId={dataTime.doctorId} />
+              </div>
+
               <div className="row">
                 <div className="col-6 form-group">
                   <label> Họ tên</label>

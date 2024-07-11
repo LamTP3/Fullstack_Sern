@@ -5,7 +5,6 @@ const handleLogin = (email, password) => {
 };
 
 const getAllUsers = (id) => {
-  // return axios.get("/api/get-all-users", { id: id });
   return axios.get(`/api/get-all-users?id=${id}`);
 };
 
@@ -50,6 +49,10 @@ const getScheduleDoctorByDateService = (doctorId, date) => {
 const getExtraDoctorInforService = (doctorId) => {
   return axios.get(`/api/get-extra-infor-doctort-by-id?doctorId=${doctorId}`);
 };
+
+const getProfileDoctorService = (doctorId) => {
+  return axios.get(`/api/get-profile-doctort-by-id?doctorId=${doctorId}`);
+};
 export {
   handleLogin,
   getAllUsers,
@@ -64,4 +67,5 @@ export {
   saveBulkScheduleDoctor,
   getScheduleDoctorByDateService,
   getExtraDoctorInforService,
+  getProfileDoctorService,
 };
