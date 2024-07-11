@@ -5,11 +5,9 @@ import Select from "react-select";
 import "./ManageSchedule.scss";
 import * as actions from "../../../store/actions";
 import DatePicker from "../../../components/Input/DatePicker";
-
 import { LANGUAGE } from "../../../utils";
 import { toast } from "react-toastify";
 import _ from "lodash";
-
 import { saveBulkScheduleDoctor } from "../../../services/userService";
 
 class ManageSchedule extends Component {
@@ -94,6 +92,9 @@ class ManageSchedule extends Component {
       toast.error("Invaild selected doctor");
       return;
     }
+    // hỗ trợ chỉ lấy ngày còn giờ phút set về 0 để thống nhất
+    // việc timeStamp của một ngày giống nhau dù chọn
+    // vào thời điểm nào
     currentDate.setHours(0, 0, 0, 0);
     let formatDate = currentDate.getTime();
     if (rangeTime && rangeTime.length > 0) {
@@ -125,7 +126,6 @@ class ManageSchedule extends Component {
   render() {
     let { rangeTime } = this.state;
     let { language } = this.props;
-
     return (
       <>
         <div className="manage-schedule-container">

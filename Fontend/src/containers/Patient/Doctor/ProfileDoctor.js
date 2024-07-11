@@ -7,6 +7,7 @@ import { LANGUAGE } from "../../../utils/constant";
 import NumberFormat from "react-number-format";
 import _ from "lodash";
 import moment from "moment";
+import { FormattedMessage } from "react-intl";
 class ProfileDoctor extends Component {
   constructor(props) {
     super(props);
@@ -40,7 +41,6 @@ class ProfileDoctor extends Component {
 
   renderTimeBooking = (dataTime) => {
     let { language } = this.props;
-    console.log("Check inside time booking: ", dataTime);
 
     if (dataTime && !_.isEmpty(dataTime)) {
       let time =
@@ -59,7 +59,10 @@ class ProfileDoctor extends Component {
           <div>
             {time} - {date}
           </div>
-          <div> Miễn phí đặt lịch</div>
+          <div>
+            {" "}
+            <FormattedMessage id="patient.detail-doctor.note" />
+          </div>
         </>
       );
     }
@@ -103,7 +106,7 @@ class ProfileDoctor extends Component {
           </div>
         </div>
         <div className="price">
-          Giá khám:{" "}
+          <FormattedMessage id="patient.detail-doctor.price" />:{" "}
           {dataProfile &&
           dataProfile.Doctor_Infor &&
           language === LANGUAGE.VI ? (

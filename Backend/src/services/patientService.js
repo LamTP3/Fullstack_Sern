@@ -44,7 +44,7 @@ let postBookAppointmentService = (data) => {
             resolve({
               errCode: 1,
               errMessage:
-                "You have appointment with other doctor in this time, please check email to clear",
+                "You have an appointment for this time, please check email to clear",
             });
           }
         }

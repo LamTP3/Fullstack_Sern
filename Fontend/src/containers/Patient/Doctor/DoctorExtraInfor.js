@@ -37,7 +37,9 @@ class DoctorExtraInfor extends Component {
       <>
         <div className="doctor-extra-infor-container">
           <div className="content-up">
-            <div className="text-address">Địa Chỉ Khám</div>
+            <div className="text-address">
+              <FormattedMessage id="patient.detail-doctor.address" />
+            </div>
             <div className="name-clinic">
               {extraInfor && extraInfor.nameClinic ? extraInfor.nameClinic : ""}
             </div>
@@ -111,7 +113,9 @@ class DoctorExtraInfor extends Component {
               </>
             ) : (
               <div onClick={() => this.hanleShow()}>
-                GIÁ KHÁM:{" "}
+                <span className="text-uppercase">
+                  <FormattedMessage id="patient.detail-doctor.price" />
+                </span>{" "}
                 <span>
                   {" "}
                   {extraInfor &&

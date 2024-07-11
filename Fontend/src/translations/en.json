@@ -70,14 +70,30 @@
         "detail-doctor": {
             "schedule":"Schedule",
             "no-schedule": "The doctor don't have an appointment during this time, please choose another time",
-                        "choose": "Choose ",
+            "choose": "Choose ",
             "book-free" :" and book (free)",
             "show": "Show detail",
             "hide": "Hide detail",
-            "price": "Price",
-            "payment" : "Patient can pay by"
-        
+            "price": "Booking Appointment",
+            "payment" : "Patient can pay by",
+            "address" : "Examination Address"  ,
+            "note" : "Free Booking Appointment"   
+        },
+        "booking-modal": {
+            "title":"Infor Book Apointment",
+            "name": "Full Name",
+            "phone": "Phone Number",
+            "email": "Email Address",
+            "address": "Address Contact",
+            "reason": "Your heath problem",
+            "person": "Who is the patient",
+            "gender": "Gender",
+            "confirm": "Confirm",
+            "cancel" : "Cancel",
+            "price" : "Price Appointment"
+
         }
+
     },
     "admin": {
         "manage-doctor": {

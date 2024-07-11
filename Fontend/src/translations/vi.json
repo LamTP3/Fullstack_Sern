@@ -10,23 +10,19 @@
         "check-health": "Khám sức khỏe tổng quát",
         "support": "Hỗ trợ"
     },
-
     "homepage": {
         "outstanding-doctor": "Bác sĩ nổi bật tuần qua",
         "more": "Xem thêm"
     },
-
     "manage-schedule": {
         "title": "Quản lý kế hoạch khám bệnh của bác sĩ",
-        "choose-doctor" :"Chọn bác sĩ",
+        "choose-doctor": "Chọn bác sĩ",
         "choose-date": "Chọn ngày",
-        "save":"Lưu thông tin"
+        "save": "Lưu thông tin"
     },
-
     "system-header": {
         "welcome": "Xin chào, "
     },
-
     "banner": {
         "title1": "NỀN TẢNG Y TẾ",
         "title2": "CHĂM SÓC SỨC KHỎE TOÀN DIỆN",
@@ -38,10 +34,8 @@
         "mental-health": "Sức khỏe tinh thần",
         "tooth-check": "Khám nha khoa"
     },
-
     "menu": {
-
-        "admin" : {
+        "admin": {
             "manage-user": "Nguời dùng ",
             "manage-doctor": "Quản lý bác sĩ",
             "manage-admin": "Quản lý admin",
@@ -53,13 +47,11 @@
             "manage-specialty": "Quản lý chuyên khoa",
             "handbook": "Cẩm nang",
             "manage-handbook": "Quản lý Cẩm nang"
-            
         },
-        "doctor" : {
+        "doctor": {
             "manage-schedule": "Quản lý kế hoạch khám bệnh"
         }
     },
-
     "manage-user": {
         "email": "Email",
         "password": "Mật Khẩu",
@@ -73,26 +65,40 @@
         "position": "Chức Vụ",
         "save": "Lưu User",
         "edit": "Lưu thay đổi"
-
     },
-
     "patient": {
         "detail-doctor": {
-            "schedule":"Lịch khám",
-            "no-schedule":"Bác sĩ không có lịch hẹn trong khoảng thời gian này, vui lòng chọn thời gian khác",
+            "schedule": "Lịch khám",
+            "no-schedule": "Bác sĩ không có lịch hẹn trong khoảng thời gian này, vui lòng chọn thời gian khác",
             "choose": "Chọn ",
-            "book-free" :" và đặt (miễn phí)",
+            "book-free": " và đặt (miễn phí)",
             "show": "Xem chi tiết",
             "hide": "Ẩn bảng giá",
             "price": "Giá Khám",
-            "payment" : "Người bệnh có thể thanh toán chi phí bằng hình thức"
-        
+            "payment": "Người bệnh có thể thanh toán chi phí bằng hình thức",
+            "address" : "Địa chỉ khám",
+            "note" : "Miễn phí đặt lịch"
+        },
+        "booking-modal": {
+            "title": "Thông tin đặt lịch khám bệnh",
+            "name": "Họ tên",
+            "phone": "Số điện thoại",
+            "email": "Địa chỉ email",
+            "address": "Địa chỉ liên hệ",
+            "reason": "Lý do khám",
+            "person": "Đặt cho ai",
+            "gender": "Giới tính",
+            "confirm": "Xác nhận",
+            "cancel": "Hủy"
+
+            
+
         }
     },
     "admin": {
         "manage-doctor": {
             "title": "Tạo thêm thông tin doctors",
-            "select-doctor":"Chọn bác sĩ",
+            "select-doctor": "Chọn bác sĩ",
             "intro": "Thông tin giới thiệu",
             "add": "Tạo thông tin",
             "save": "Lưu thông tin",
@@ -102,8 +108,6 @@
             "name-clinic": "Tên phòng khám",
             "address-clinic": "Địa chỉ phòng khám",
             "note": "Ghi chú"
-
         }
     }
-
 }
