@@ -9,14 +9,19 @@ import moment from "moment";
 import "moment/locale/vi";
 import { getScheduleDoctorByDateService } from "../../../services/userService";
 import { FormattedMessage } from "react-intl";
+import BookingModal from "./Modal/BookingModal";
+
 class DoctorSchedule extends Component {
   constructor(props) {
     super(props);
     this.state = {
       allDays: [],
       allAvailableTime: [],
+      isOpenModalBooking: false,
+      dataScheduleTimeModal: {},
     };
   }
+
   async componentDidMount() {
     let { lang } = this.props;
     let allDays = await this.getArrDays(lang);
@@ -91,8 +96,27 @@ class DoctorSchedule extends Component {
       });
     }
   }
+
+  hanleClickScheduleTime = (time) => {
+    this.setState({
+      isOpenModalBooking: true,
+      dataScheduleTimeModal: time,
+    });
+    console.log(`Check: `, time);
+  };
+
+  closeBookingModal = () => {
+    this.setState({
+      isOpenModalBooking: false,
+    });
+  };
   render() {
-    let { allDays, allAvailableTime } = this.state;
+    let {
+      allDays,
+      allAvailableTime,
+      isOpenModalBooking,
+      dataScheduleTimeModal,
+    } = this.state;
     let { lang } = this.props;
     return (
       <>
@@ -134,6 +158,7 @@ class DoctorSchedule extends Component {
                           className={
                             lang === LANGUAGE.VI ? "btn-vie" : "btn-en"
                           }
+                          onClick={() => this.hanleClickScheduleTime(item)}
                         >
                           {timeDisplay}
                         </button>
@@ -156,6 +181,12 @@ class DoctorSchedule extends Component {
             </div>
           </div>
         </div>
+
+        <BookingModal
+          isOpenModal={isOpenModalBooking}
+          closeBookingModal={this.closeBookingModal}
+          dataTime={dataScheduleTimeModal}
+        />
       </>
     );
   }
