@@ -15,7 +15,14 @@ let sendSimpleEmail = async (dataSend) => {
     from: '"Phuc Lam Tran 👻" <lamtp2810@gmail.com>',
     to: dataSend.reciverEmail,
     subject: "Thôn tin đặt lịch khám bệnh",
-    html: `
+    html: getBodyHTMLEmail(dataSend),
+  });
+};
+
+let getBodyHTMLEmail = (dataSend) => {
+  let result = "";
+  if (dataSend.language === "vi") {
+    result = `
     <h3> Xin chào ${dataSend.patientName} </h3>
     <p> Bạn nhận được email này vì đã đặt lịch khám 
     bệnh online trên Booking Care </p>
@@ -39,10 +46,37 @@ let sendSimpleEmail = async (dataSend) => {
         Xin chân thành cảm ơn
     </div>
 
+    `;
+  }
+  if (dataSend.language === "en") {
+    result = `
+<h3> Hello ${dataSend.patientName} </h3>
+<p> You are receiving this email because you have scheduled an appointment
+online medical on Booking Care </p>
+<p> Information for scheduling medical examination: </p>
+<div>
+    <b>
+        Time: ${dataSend.time}
+    </b>
+</div>
+<div>
+    <b>
+    Doctor: ${dataSend.doctorName}
+    </b>
+</div>
+<p> If the above information is true, please click
+Click on the link below to confirm and complete medical examination procedures </p>
+<div>
+    <a href= ${dataSend.redirectLink} target="_blank"> Click Here </a>
+<div>
+<div>
+Sincerely thank
+</div>
 
+`;
+  }
 
-    `,
-  });
+  return result;
 };
 
 module.exports = {

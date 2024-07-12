@@ -21,6 +21,14 @@ module.exports = (sequelize, DataTypes) => {
       User.hasOne(models.Doctor_Infor, {
         foreignKey: "doctorId",
       });
+
+      // Mối quan hệ một nhiều với bảng Schedule
+      // 1 user sẽ có nhiều lịch khám (schedule)
+      // tuy nhiên cùng là lịch khám ấy sẽ chỉ có một thằng user thôi
+      User.hasMany(models.Schedule, {
+        foreignKey: "doctorId",
+        as: "doctorData",
+      });
     }
   }
   User.init(

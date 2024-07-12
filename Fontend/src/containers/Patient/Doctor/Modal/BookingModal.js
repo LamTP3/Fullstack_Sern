@@ -9,6 +9,8 @@ import Select from "react-select";
 import { postBookAppointmentService } from "../../../../services/userService";
 import { toast } from "react-toastify";
 import { FormattedMessage } from "react-intl";
+import _ from "lodash";
+import moment from "moment";
 class BookingModal extends Component {
   constructor(props) {
     super(props);
@@ -26,9 +28,11 @@ class BookingModal extends Component {
       date: "",
     };
   }
+
   async componentDidMount() {
     await this.props.fetchGender();
   }
+
   bulidDataGender = (data) => {
     let result = [];
     let language = this.props.language;
@@ -42,6 +46,7 @@ class BookingModal extends Component {
     }
     return result;
   };
+
   async componentDidUpdate(prevProps, prveState, snapshot) {
     if (this.props.language !== prevProps.language) {
       this.setState({
@@ -75,7 +80,45 @@ class BookingModal extends Component {
     this.setState({ selectedGender: selectedOption });
   };
 
+  // mục địch của hàm này là để build ra một cục
+  // dữ liệu như 8:00 - 9:00 Chủ Nhật 1/8/2024
+  // làm ở font end nếu không backend rất khổ
+
+  buildTimeBooking = (dataTime) => {
+    let { language } = this.props;
+
+    if (dataTime && !_.isEmpty(dataTime)) {
+      let time =
+        language === LANGUAGE.VI
+          ? dataTime.timeTypeData.valueVi
+          : dataTime.timeTypeData.valueEn;
+      let date =
+        language === LANGUAGE.VI
+          ? // date của dateTime được lưu dưới database là một string chứ
+            // không phải timeStamp tuy nhiên +dataTime.date
+            // (dấu + ở đây có tác dụng chuyển string sang số nguyên)
+            moment(+dataTime.date).format("dddd - DD/MM/YYYY")
+          : moment(+dataTime.date).locale("en").format("ddd - MM/DD/YYYY");
+      return `            ${time} - ${date}`;
+    }
+    return ``;
+  };
+  buildDoctorName = (dataTime) => {
+    let { language } = this.props;
+    if (dataTime && !_.isEmpty(dataTime)) {
+      let name =
+        language === LANGUAGE.VI
+          ? `${dataTime.doctorData.lastName} ${dataTime.doctorData.firstName}`
+          : `${dataTime.doctorData.firstName} ${dataTime.doctorData.lastName}`;
+
+      return name;
+    }
+    return ``;
+  };
+
   handleConfirmBooking = async () => {
+    let timeString = this.buildTimeBooking(this.props.dataTime);
+    let doctorName = this.buildDoctorName(this.props.dataTime);
     let res = await postBookAppointmentService({
       email: this.state.email,
       timeType: this.state.timeType,
@@ -88,7 +131,13 @@ class BookingModal extends Component {
       reason: this.state.reason,
       gender: this.state.selectedGender.value,
       person: this.state.person,
+
+      language: this.props.language,
+      timeString: timeString,
+
+      doctorName: doctorName,
     });
+
     if (res && res.errCode === 0) {
       toast.success("Booking success");
       this.props.closeBookingModal();
