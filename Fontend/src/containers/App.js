@@ -8,7 +8,6 @@ import {
   userIsAuthenticated,
   userIsNotAuthenticated,
 } from "../hoc/authentication";
-
 import { path } from "../utils";
 import Home from "../routes/Home";
 import Login from "./Auth/Login";
@@ -19,23 +18,23 @@ import CustomScrollbars from "../components/CustomScrollbars";
 import Doctor from "../routes/Doctor";
 import VerifyEmail from "./Patient/VerifyEmail";
 class App extends Component {
-  handlePersistorState = () => {
-    const { persistor } = this.props;
-    let { bootstrapped } = persistor.getState();
-    if (bootstrapped) {
-      if (this.props.onBeforeLift) {
-        Promise.resolve(this.props.onBeforeLift())
-          .then(() => this.setState({ bootstrapped: true }))
-          .catch(() => this.setState({ bootstrapped: true }));
-      } else {
-        this.setState({ bootstrapped: true });
-      }
-    }
-  };
+  // handlePersistorState = () => {
+  //   const { persistor } = this.props;
+  //   let { bootstrapped } = persistor.getState();
+  //   if (bootstrapped) {
+  //     if (this.props.onBeforeLift) {
+  //       Promise.resolve(this.props.onBeforeLift())
+  //         .then(() => this.setState({ bootstrapped: true }))
+  //         .catch(() => this.setState({ bootstrapped: true }));
+  //     } else {
+  //       this.setState({ bootstrapped: true });
+  //     }
+  //   }
+  // };
 
-  componentDidMount() {
-    this.handlePersistorState();
-  }
+  // componentDidMount() {
+  //   this.handlePersistorState();
+  // }
 
   render() {
     return (

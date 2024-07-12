@@ -33,6 +33,7 @@ class Login extends Component {
       isShowPassword: !this.state.isShowPassword,
     });
   };
+  //dùng để bắt sự kiện enter
   handleKeyDown = (event) => {
     if (event.key === "Enter" || event.keyCode === 13) {
       this.handleLogin(event);

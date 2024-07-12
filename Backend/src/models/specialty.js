@@ -5,9 +5,12 @@ module.exports = (sequelize, DataTypes) => {
   }
   Specialty.init(
     {
+      // Khác biệt giữa dùng String và Text ở đây là Text lưu được nhiều dữ liệu hơn thôi
       name: DataTypes.STRING,
-      description: DataTypes.TEXT,
-      image: DataTypes.STRING,
+      descriptionHTML: DataTypes.TEXT,
+      descriptionMarkdown: DataTypes.TEXT,
+      image: DataTypes.TEXT,
+      // image: DataTypes.BLOB("long"),
     },
     {
       sequelize,

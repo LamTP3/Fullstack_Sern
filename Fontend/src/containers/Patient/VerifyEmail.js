@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { posVerifyBookAppointmentService } from "../../services/userService";
+import { postVerifyBookAppointmentService } from "../../services/userService";
 import HomeHeader from "../HomePage/Header/HomeHeader";
 import "./VerifyEmail.scss";
 class VerifyEmail extends Component {
@@ -17,7 +17,7 @@ class VerifyEmail extends Component {
       let urlParams = new URLSearchParams(this.props.location.search);
       let token = urlParams.get(`token`);
       let doctorId = urlParams.get(`doctorId`);
-      let res = await posVerifyBookAppointmentService({
+      let res = await postVerifyBookAppointmentService({
         token: token,
         doctorId: doctorId,
       });
