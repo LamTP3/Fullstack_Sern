@@ -17,10 +17,8 @@ class ModalEditUser extends Component {
   }
 
   componentDidMount() {
-    // console.log("Check props from parent: ", this.props.currentUser);
-
     let user = this.props.currentUser;
-    // let {currentUser} = this.props;
+
     if (user && !_.isEmpty(user)) {
       this.setState({
         id: user.id,
@@ -70,7 +68,6 @@ class ModalEditUser extends Component {
           isOpen={this.props.isOpen}
           toggle={this.props.toggle}
           className={`modal-user-container`}
-          //   size="lg"
           centered
         >
           <form>

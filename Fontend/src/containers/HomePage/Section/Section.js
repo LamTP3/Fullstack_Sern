@@ -34,6 +34,8 @@ class Section extends Component {
           <div className="section-body">
             <Slider {...settings}>
               {data?.map((item) => {
+                // vì ở backend chưa convert image lưu ở database từ dạng Buffer
+                // sang string lên ta sẽ làm ở fontend bằng đoạn code dưới
                 let imageBase64;
                 if (item.image) {
                   imageBase64 = Buffer.from(item.image, "base64").toString(
@@ -65,8 +67,10 @@ class Section extends Component {
                       </div>
                       <div className="position text-center">
                         <div>
-                          {language === LANGUAGE.VI ? nameVi : nameEN}
-                          <div>{item.specialty}</div>
+                          <span>
+                            {language === LANGUAGE.VI ? nameVi : nameEN}
+                          </span>
+                          <span>{item.specialty}</span>
                         </div>
                       </div>
                     </div>
@@ -85,7 +89,7 @@ class Section extends Component {
                         ></div>
                       </div>
                       <div className="position text-center">
-                        <div>{item.name}</div>
+                        <span>{item.name}</span>
                       </div>
                     </div>
                   );

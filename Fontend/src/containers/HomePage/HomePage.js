@@ -7,22 +7,16 @@ import HomeFooter from "./Footer/HomeFooter";
 import "./HomePage.scss";
 import * as action from "../../store/actions";
 import { injectIntl } from "react-intl";
+import { getSpecialtySercie } from "../../services/userService";
 class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       arrDoctor: [],
+      arrSpecialty: [],
     };
   }
 
-  data1 = [
-    { id: 1, name: "Cơ xương khớp 1" },
-    { id: 2, name: "Cơ xương khớp 2" },
-    { id: 3, name: "Cơ xương khớp 3" },
-    { id: 4, name: "Cơ xương khớp 4" },
-    { id: 5, name: "Cơ xương khớp 5" },
-    { id: 6, name: "Cơ xương khớp 6" },
-  ];
   data2 = [
     { id: 1, name: "Bệnh viện Thu Cúc 1" },
     { id: 2, name: "Bệnh viện Thu Cúc 2" },
@@ -40,8 +34,14 @@ class HomePage extends Component {
     { id: 6, name: "Cẩm Nang 6" },
   ];
 
-  componentDidMount() {
+  async componentDidMount() {
     this.props.loadTopDoctor();
+    let res = await getSpecialtySercie();
+    if (res && res.errCode === 0) {
+      this.setState({
+        arrSpecialty: res.data,
+      });
+    }
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.topDoctor !== this.props.topDoctor) {
@@ -56,9 +56,11 @@ class HomePage extends Component {
       <>
         <HomeHeader showBanner={true} />
         <Specialty
-          title="Chuyên khoa phổ biến"
+          title={intl.formatMessage({
+            id: "homepage.specialty-popular",
+          })}
           bg_Color="#eee"
-          data={this.data1}
+          data={this.state.arrSpecialty}
         />
         <Specialty
           title="Cơ sở y tế nổi bật"

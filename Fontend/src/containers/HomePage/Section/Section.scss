@@ -51,13 +51,21 @@
             justify-content: center;
             .bg-image {
               margin-top: 5px;
-              height: 150px;
+              height: 200px;
               width: 278px;
-              background: url("../../../assets/specialty/img1.png");
+              background: url("../../../assets/images/not-found-image.jpg");
               background-position: center center;
               background-repeat: no-repeat;
               background-size: cover;
               background-color: #eee;
+            }
+          }
+          .position {
+            span {
+              cursor: pointer;
+              &:hover {
+                color: #45c3d2;
+              }
             }
           }
         }

@@ -70,6 +70,13 @@ class ManageSpecialty extends Component {
     });
     if (res && res.errCode === 0) {
       toast.success(`Create success`);
+      this.setState({
+        name: "",
+        imageBase64: "",
+        descriptionMarkdown: "",
+        descriptionHTML: "",
+        previewImgURL: "",
+      });
     } else {
       toast.error(`Something wrong ...`);
     }
