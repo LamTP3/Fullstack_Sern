@@ -82,7 +82,6 @@ class DoctorSchedule extends Component {
     let id = this.props?.currentDoctorId;
     let date = event.target.value;
     let res = await getScheduleDoctorByDateService(id, date);
-    console.log(`Check: `, res.data);
     if (res && res.errCode === 0) {
       this.setState({
         allAvailableTime: res?.data ? res?.data : [],

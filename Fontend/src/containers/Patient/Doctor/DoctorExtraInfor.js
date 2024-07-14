@@ -14,7 +14,16 @@ class DoctorExtraInfor extends Component {
       extraInfor: {},
     };
   }
-  async componentDidMount() {}
+  async componentDidMount() {
+    if (this.props.currentDoctorId) {
+      let res = await getExtraDoctorInforService(this.props.currentDoctorId);
+      if (res && res.errCode === 0) {
+        this.setState({
+          extraInfor: res.data,
+        });
+      }
+    }
+  }
   hanleShow = () => {
     this.setState({
       isShowInfor: !this.state.isShowInfor,
