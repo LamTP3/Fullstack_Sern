@@ -56,8 +56,67 @@ let getSpecialtyService = () => {
     }
   });
 };
+let getDetailSpecialtyByIdService = (id, location) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (!id || !location) {
+        resolve({
+          errCode: 1,
+          errMessage: "Missing required parameter!",
+        });
+      } else {
+        let data = await db.Specialty.findOne({
+          where: {
+            id: id,
+          },
+          attributes: ["descriptionHTML", "descriptionMarkdown"],
+        });
+        if (data) {
+          if (location === "ALL") {
+            // có 2 cách làm để lấy được các doctort thuộc một specailty
+            // cách đầu tiên là định nghĩa relationship trong model
+            // cách 2 là cách dưới đây gọi thêm query lần nữa bằng cách
+            // findAll (nhược điểm so với cách đầu thì phải query thêm 1 lần)
+
+            let doctorSpecialty = await db.Doctor_Infor.findAll({
+              where: {
+                specialtyId: id,
+              },
+              attributes: ["doctorId", "provinceId"],
+            });
+            data.doctorSpecialty = doctorSpecialty;
+          } else {
+            let doctorSpecialty = await db.Doctor_Infor.findAll({
+              where: {
+                specialtyId: id,
+                provinceId: location,
+              },
+              attributes: ["doctorId", "provinceId"],
+            });
+            data.doctorSpecialty = doctorSpecialty;
+          }
+
+          resolve({
+            errMessage: "Get Specialty Detail Success",
+            errCode: 0,
+            data,
+          });
+        } else {
+          resolve({
+            errMessage: "Don't have specialty data",
+            errCode: 0,
+            data,
+          });
+        }
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 
 module.exports = {
   createSpecialtyService,
   getSpecialtyService,
+  getDetailSpecialtyByIdService,
 };

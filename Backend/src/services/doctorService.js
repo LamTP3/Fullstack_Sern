@@ -78,7 +78,7 @@ let saveDetailInforDoctor = (inputData) => {
           errMessage: "Missing parameter",
         });
       } else {
-        //upsert to Markdown vs Clinic
+        //upsert to Markdown
         if (inputData.actions === "CREATE") {
           await db.Markdown.create({
             contentHTML: inputData.contentHTML,
@@ -87,7 +87,6 @@ let saveDetailInforDoctor = (inputData) => {
             doctorId: inputData.doctorId,
           });
         } else if (inputData.actions === "EDIT") {
-          // với table Markdown
           let doctorMarkdown = await db.Markdown.findOne({
             where: { doctorId: inputData.doctorId },
             raw: false,
