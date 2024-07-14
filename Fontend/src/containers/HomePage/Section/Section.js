@@ -70,14 +70,18 @@ class Section extends Component {
                           <span>
                             {language === LANGUAGE.VI ? nameVi : nameEN}
                           </span>
-                          <span>{item.specialty}</span>
+                          {/* <span>{item.specialty}</span> */}
                         </div>
                       </div>
                     </div>
                   );
                 } else {
                   return (
-                    <div key={item.id} className="section-customie">
+                    <div
+                      key={item.id}
+                      className="section-customie"
+                      onClick={() => this.handleNavigate(item)}
+                    >
                       <div className="outer_bg">
                         <div
                           className="bg-image"

@@ -60,6 +60,7 @@ class HomePage extends Component {
             id: "homepage.specialty-popular",
           })}
           bg_Color="#eee"
+          urlNavigate="detail-specialty"
           data={this.state.arrSpecialty}
         />
         <Specialty

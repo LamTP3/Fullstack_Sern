@@ -70,22 +70,24 @@ let saveDetailInforDoctor = (inputData) => {
         !inputData.selectedPayment ||
         !inputData.selectedProvince ||
         !inputData.nameClinic ||
-        !inputData.addressClinic
+        !inputData.addressClinic ||
+        !inputData.specialtyId
       ) {
         resolve({
           errCode: 1,
           errMessage: "Missing parameter",
         });
       } else {
-        //upsert to Markdown
-        if (inputData.actions === "CREATE")
+        //upsert to Markdown vs Clinic
+        if (inputData.actions === "CREATE") {
           await db.Markdown.create({
             contentHTML: inputData.contentHTML,
             contentMarkdown: inputData.contentMarkdown,
             description: inputData.description,
             doctorId: inputData.doctorId,
           });
-        else if (inputData.actions === "EDIT") {
+        } else if (inputData.actions === "EDIT") {
+          // với table Markdown
           let doctorMarkdown = await db.Markdown.findOne({
             where: { doctorId: inputData.doctorId },
             raw: false,
@@ -115,6 +117,7 @@ let saveDetailInforDoctor = (inputData) => {
           doctorInfor.addressClinic = inputData.addressClinic;
           doctorInfor.nameClinic = inputData.nameClinic;
           doctorInfor.note = inputData.note;
+          doctorInfor.specialtyId = inputData.specialtyId;
 
           await doctorInfor.save();
         } else {
@@ -127,6 +130,7 @@ let saveDetailInforDoctor = (inputData) => {
             addressClinic: inputData.addressClinic,
             nameClinic: inputData.nameClinic,
             note: inputData.note,
+            specialtyId: inputData.specialtyId,
           });
         }
 

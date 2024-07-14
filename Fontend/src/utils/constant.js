@@ -6,6 +6,7 @@ export const path = {
   SYSTEM: "/system",
   DOCTOR: "/doctor/",
   DETAIL_DOCTOR: "/detail-doctor/:id",
+  DETAIL_SPECIALTY: "/detail-specialty/:id",
   VERIFY_EMAIL_BOOKING: "/verify-booking",
 };
 
@@ -25,10 +26,10 @@ export const DATE_FORMAT = {
   SEND_TO_SERVER: "DD/MM/YYYY",
 };
 
-export const YesNoObj = {
-  YES: "Y",
-  NO: "N",
-};
+// export const YesNoObj = {
+//   YES: "Y",
+//   NO: "N",
+// };
 
 export const USER_ROLE = {
   ADMIN: "R1",
