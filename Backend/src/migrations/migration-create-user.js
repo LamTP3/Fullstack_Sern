@@ -40,6 +40,12 @@ module.exports = {
       positionId: {
         type: Sequelize.STRING,
       },
+      patient: {
+        type: Sequelize.STRING,
+      },
+      reason: {
+        type: Sequelize.STRING,
+      },
 
       createdAt: {
         allowNull: false,

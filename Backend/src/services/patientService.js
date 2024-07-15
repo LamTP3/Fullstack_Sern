@@ -2,6 +2,7 @@ import { where } from "sequelize";
 import db from "../models/index";
 import emailService from "./emailService";
 import { v4 as uuidv4 } from "uuid";
+import { first } from "lodash";
 require("dotenv").config();
 
 let buildUrlEmail = (doctorId, token) => {
@@ -17,7 +18,9 @@ let postBookAppointmentService = (data) => {
         !data.timeType ||
         !data.date ||
         !data.doctorId ||
-        !data.fullName
+        !data.fullName ||
+        !data.address ||
+        !data.gender
       ) {
         resolve({
           errCode: 1,
@@ -39,6 +42,12 @@ let postBookAppointmentService = (data) => {
           defaults: {
             email: data.email,
             roleId: "R3",
+            firstName: data.fullName,
+            patient: data.person,
+            gender: data.gender,
+            reason: data.reason,
+            address: data.address,
+            phonenumber: data.phoneNumber,
           },
         });
 
