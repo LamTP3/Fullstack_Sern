@@ -29,15 +29,18 @@ class ManageDoctor extends Component {
       listProvince: [],
       listClinic: [],
       listSpecialty: [],
+
       selectedPrice: null,
       selectedPayment: null,
       selectedProvince: null,
       selectedClinic: null,
       selectedSpecialty: null,
+
       nameClinic: "",
       addressClinic: "",
       note: "",
       specialtyId: "",
+      clinicId: "",
     };
   }
 
@@ -79,7 +82,7 @@ class ManageDoctor extends Component {
           object.value = item.keyMap;
           result.push(object);
         }
-        if (type === "specialty") {
+        if (type === "specialty" || type === "clinic") {
           let object = {};
           object.label = item.name;
           object.value = item.id;
@@ -117,22 +120,24 @@ class ManageDoctor extends Component {
         listProvince: dataSelectProvince,
       });
     }
+
     if (
       prevProps.allRequiredDoctorInfor !== this.props.allRequiredDoctorInfor
     ) {
-      let { resPrice, resPayment, resProvince, resSpecialty } =
+      let { resPrice, resPayment, resProvince, resSpecialty, resClinic } =
         this.props.allRequiredDoctorInfor;
 
       let dataSelectPrice = this.buildDataInput(resPrice, "price");
       let dataSelectPayment = this.buildDataInput(resPayment, "payment");
       let dataSelectProvince = this.buildDataInput(resProvince, "province");
       let dataSelectSpecialty = this.buildDataInput(resSpecialty, "specialty");
-
+      let dataSelectClinic = this.buildDataInput(resClinic, "clinic");
       this.setState({
         listPrice: dataSelectPrice,
         listPayment: dataSelectPayment,
         listProvince: dataSelectProvince,
         listSpecialty: dataSelectSpecialty,
+        listClinic: dataSelectClinic,
       });
     }
   }
@@ -146,8 +151,6 @@ class ManageDoctor extends Component {
 
   handleSubmit = () => {
     let { hasOldData } = this.state;
-    // console.log(`Check: `, this.state);
-    // return;
     this.props.saveDetailDoctor({
       // save for markdown table
       contentHTML: this.state.contentHTML,
@@ -164,12 +167,14 @@ class ManageDoctor extends Component {
       addressClinic: this.state.addressClinic,
       note: this.state.note,
       specialtyId: this.state.selectedSpecialty?.value,
+      clinicId: this.state.selectedClinic?.value,
     });
   };
 
   findDoctor = async (selectedDoctor) => {
     this.setState({ selectedDoctor });
-    let { listPayment, listPrice, listProvince, listSpecialty } = this.state;
+    let { listPayment, listPrice, listProvince, listSpecialty, listClinic } =
+      this.state;
     let res = await getDetailInforDoctor(selectedDoctor.value);
     //nếu tìm thấy thông tin doctor thì gán hasOldData là true, nghĩa là có dữ liệu hiển thị
     if (res && res.errCode === 0 && res.data && res.data.Markdown) {
@@ -183,14 +188,13 @@ class ManageDoctor extends Component {
       let priceId = "";
       let provinceId = "";
       let specialtyId = "";
+      let clinicId = "";
 
-      let selectedPayment;
-
-      let selectedPrice;
-
-      let selectedProvince;
-
-      let selectedSpecialty;
+      let selectedPayment = "";
+      let selectedPrice = "";
+      let selectedProvince = "";
+      let selectedSpecialty = "";
+      let selectedClinic = "";
 
       if (res.data.Doctor_Infor) {
         addressClinic = res.data.Doctor_Infor.addressClinic;
@@ -200,7 +204,10 @@ class ManageDoctor extends Component {
         priceId = res.data.Doctor_Infor.priceId;
         provinceId = res.data.Doctor_Infor.provinceId;
         specialtyId = res.data.Doctor_Infor.specialtyId;
+        clinicId = res.data.Doctor_Infor.clinicId;
 
+        //  code dưới có tác dụng set giá trị default của thẻ select bằng giá trị
+        // tương tứng của bác sĩ đó trong db
         selectedPayment = listPayment.find((item) => {
           return item && item.value === paymentId;
         });
@@ -212,6 +219,10 @@ class ManageDoctor extends Component {
         });
         selectedSpecialty = listSpecialty.find((item) => {
           return item && item.value === specialtyId;
+        });
+
+        selectedClinic = listClinic.find((item) => {
+          return item && item.value === clinicId;
         });
       }
       this.setState({
@@ -227,6 +238,7 @@ class ManageDoctor extends Component {
         selectedPrice: selectedPrice,
         selectedProvince: selectedProvince,
         selectedSpecialty: selectedSpecialty,
+        selectedClinic: selectedClinic,
       });
     } else {
       this.setState({
@@ -375,10 +387,24 @@ class ManageDoctor extends Component {
                 options={this.state.listSpecialty}
               />
             </div>
-            {/* <div className="col-4 form-group">
-              <label> Chọn phòng khám</label>
-              <input className="form-control" />
-            </div> */}
+            {/**
+             * Trường bên dưới là lấy từ bảng Clinic không liên quan gì đến
+             * 2 trường input là address Clinic và name Clinic ở trên
+             * và lý do bị vậy là do việc thiết kế db đang có vấn đề
+             * về việc bảng doctor infor lưu trường name Clinic
+             * và address Clinic. Lên trường phía dưới sinh ra là biện pháp
+             * phòng cháy. Lên dành thời gian để sửa db lại
+             */}
+            <div className="col-4 form-group">
+              <label> Chọn Phòng Khám Bệnh </label>
+
+              <Select
+                value={this.state.selectedClinic}
+                name="selectedClinic"
+                onChange={this.handleChangeSelectDoctorInfor}
+                options={this.state.listClinic}
+              />
+            </div>
           </div>
         </div>
 

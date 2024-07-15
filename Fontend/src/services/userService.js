@@ -80,6 +80,13 @@ const createClinicSercie = (data) => {
   return axios.post(`/api/create-new-clinic`, data);
 };
 
+const getAllClinicSercie = () => {
+  return axios.get(`/api/get-all-clinic`);
+};
+const getDetailClinicById = (data) => {
+  return axios.get(`/api/get-detail-clinic-by-id?id=${data.id}`);
+};
+
 export {
   handleLogin,
   getAllUsers,
@@ -101,4 +108,6 @@ export {
   getSpecialtySercie,
   getDetailSpecialtyById,
   createClinicSercie,
+  getAllClinicSercie,
+  getDetailClinicById,
 };

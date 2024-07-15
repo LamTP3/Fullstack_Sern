@@ -56,6 +56,7 @@ let getSpecialtyService = () => {
     }
   });
 };
+
 let getDetailSpecialtyByIdService = (id, location) => {
   return new Promise(async (resolve, reject) => {
     try {

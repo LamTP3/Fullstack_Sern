@@ -7,24 +7,20 @@ import HomeFooter from "./Footer/HomeFooter";
 import "./HomePage.scss";
 import * as action from "../../store/actions";
 import { injectIntl } from "react-intl";
-import { getSpecialtySercie } from "../../services/userService";
+import {
+  getSpecialtySercie,
+  getAllClinicSercie,
+} from "../../services/userService";
 class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       arrDoctor: [],
       arrSpecialty: [],
+      arrClinic: [],
     };
   }
 
-  data2 = [
-    { id: 1, name: "Bệnh viện Thu Cúc 1" },
-    { id: 2, name: "Bệnh viện Thu Cúc 2" },
-    { id: 3, name: "Bệnh viện Thu Cúc 3" },
-    { id: 4, name: "Bệnh viện Thu Cúc 4" },
-    { id: 5, name: "Bệnh viện Thu Cúc 5" },
-    { id: 6, name: "Bệnh viện Thu Cúc 6" },
-  ];
   // data4 = [
   //   { id: 1, name: "Cẩm Nang 1" },
   //   { id: 2, name: "Cẩm Nang 2" },
@@ -36,10 +32,16 @@ class HomePage extends Component {
 
   async componentDidMount() {
     this.props.loadTopDoctor();
-    let res = await getSpecialtySercie();
-    if (res && res.errCode === 0) {
+    let resSpecialty = await getSpecialtySercie();
+    if (resSpecialty && resSpecialty.errCode === 0) {
       this.setState({
-        arrSpecialty: res.data,
+        arrSpecialty: resSpecialty.data,
+      });
+    }
+    let resClinic = await getAllClinicSercie();
+    if (resClinic && resClinic.errCode === 0) {
+      this.setState({
+        arrClinic: resClinic.data,
       });
     }
   }
@@ -64,9 +66,12 @@ class HomePage extends Component {
           data={this.state.arrSpecialty}
         />
         <Specialty
-          title="Cơ sở y tế nổi bật"
+          title={intl.formatMessage({
+            id: "homepage.outstanding-clinic",
+          })}
           bg_Color="#eee"
-          data={this.data2}
+          data={this.state.arrClinic}
+          urlNavigate="detail-clinic"
         />
         <Specialty
           title={intl.formatMessage({
