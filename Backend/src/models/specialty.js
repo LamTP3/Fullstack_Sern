@@ -10,7 +10,6 @@ module.exports = (sequelize, DataTypes) => {
       descriptionHTML: DataTypes.TEXT,
       descriptionMarkdown: DataTypes.TEXT,
       image: DataTypes.TEXT,
-      // image: DataTypes.BLOB("long"),
     },
     {
       sequelize,

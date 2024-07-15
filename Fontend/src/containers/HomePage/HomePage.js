@@ -25,14 +25,14 @@ class HomePage extends Component {
     { id: 5, name: "Bệnh viện Thu Cúc 5" },
     { id: 6, name: "Bệnh viện Thu Cúc 6" },
   ];
-  data4 = [
-    { id: 1, name: "Cẩm Nang 1" },
-    { id: 2, name: "Cẩm Nang 2" },
-    { id: 3, name: "Cẩm Nang 3" },
-    { id: 4, name: "Cẩm Nang 4" },
-    { id: 5, name: "Cẩm Nang 5" },
-    { id: 6, name: "Cẩm Nang 6" },
-  ];
+  // data4 = [
+  //   { id: 1, name: "Cẩm Nang 1" },
+  //   { id: 2, name: "Cẩm Nang 2" },
+  //   { id: 3, name: "Cẩm Nang 3" },
+  //   { id: 4, name: "Cẩm Nang 4" },
+  //   { id: 5, name: "Cẩm Nang 5" },
+  //   { id: 6, name: "Cẩm Nang 6" },
+  // ];
 
   async componentDidMount() {
     this.props.loadTopDoctor();
@@ -77,7 +77,7 @@ class HomePage extends Component {
           doctor={true}
           urlNavigate="detail-doctor"
         />
-        <Specialty title="Cẩm Nang" bg_Color="#eee" data={this.data4} />
+        {/* <Specialty title="Cẩm Nang" bg_Color="#eee" data={this.data4} /> */}
         <About />
         <HomeFooter />
       </>

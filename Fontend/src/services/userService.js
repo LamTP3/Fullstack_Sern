@@ -75,6 +75,11 @@ const getDetailSpecialtyById = (data) => {
     `/api/get-detail-specialty-by-id?id=${data.id}&location=${data.location}`
   );
 };
+
+const createClinicSercie = (data) => {
+  return axios.post(`/api/create-new-clinic`, data);
+};
+
 export {
   handleLogin,
   getAllUsers,
@@ -95,4 +100,5 @@ export {
   createSpecialtySercie,
   getSpecialtySercie,
   getDetailSpecialtyById,
+  createClinicSercie,
 };
