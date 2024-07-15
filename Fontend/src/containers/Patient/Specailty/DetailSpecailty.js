@@ -11,6 +11,7 @@ import {
 } from "../../../services/userService";
 import _ from "lodash";
 import { LANGUAGE } from "../../../utils";
+import HomeFooter from "../../HomePage/Footer/HomeFooter";
 class DetailSpecailty extends Component {
   constructor(props) {
     super(props);
@@ -45,10 +46,22 @@ class DetailSpecailty extends Component {
           });
         }
       }
+
+      let dataProvince = resProvince.data;
+      // gán thêm lựa chọn All vào select Province
+      if (dataProvince && dataProvince.length > 0) {
+        // dùng unshift để giá trị gán thêm đứng đầu mảng
+        dataProvince.unshift({
+          keyMap: "ALL",
+          type: "PROVINCE",
+          valueEn: "All Province",
+          valueVi: "Toàn quốc",
+        });
+      }
       this.setState({
         dataDetailSpecailty: res.data,
         arrDoctorId: arrDoctorId,
-        listProvince: resProvince.data,
+        listProvince: dataProvince,
       });
     }
   }
@@ -58,8 +71,31 @@ class DetailSpecailty extends Component {
     }
   }
 
-  handleOnChangeSelect = (event) => {
-    console.log("Check: ", event.target.value);
+  handleOnChangeSelect = async (event) => {
+    let id = this.props?.match?.params?.id;
+    let location = event.target.value;
+    let res = await getDetailSpecialtyById({
+      id: id,
+      location: location,
+    });
+
+    if (res && res.errCode === 0) {
+      let data = res.data;
+      let arrDoctorId = [];
+      if (data && !_.isEmpty(res.data)) {
+        let arr = data.doctorSpecialty;
+        if (arr && arr.length > 0) {
+          arr.forEach((element) => {
+            arrDoctorId.push(element.doctorId);
+          });
+        }
+      }
+
+      this.setState({
+        dataDetailSpecailty: res.data,
+        arrDoctorId: arrDoctorId,
+      });
+    }
   };
 
   render() {
@@ -96,32 +132,41 @@ class DetailSpecailty extends Component {
             </select>
           </div>
           <div>
-            {arrDoctorId &&
-              arrDoctorId.length > 0 &&
-              arrDoctorId.map((item, index) => {
-                return (
-                  <div className="each-doctor" key={index}>
-                    <div className="doctor-left">
-                      <div className="profile-doctor">
-                        <ProfileDoctor
-                          doctorId={item}
-                          isShowDescriptionDoctor={true}
-                        />
+            {arrDoctorId && arrDoctorId.length > 0 ? (
+              <div>
+                {arrDoctorId.map((item, index) => {
+                  return (
+                    <div className="each-doctor" key={index}>
+                      <div className="doctor-left">
+                        <div className="profile-doctor">
+                          <ProfileDoctor
+                            doctorId={item}
+                            isShowDescriptionDoctor={true}
+                            isShowLinkDetail={true}
+                            isShowPrice={false}
+                          />
+                        </div>
+                      </div>
+                      <div className="doctor-right">
+                        <div>
+                          <DoctorSchedule currentDoctorId={item} />
+                        </div>
+                        <div className="doctor-extra-infor">
+                          <DoctorExtraInfor currentDoctorId={item} />
+                        </div>
                       </div>
                     </div>
-                    <div className="doctor-right">
-                      <div>
-                        <DoctorSchedule currentDoctorId={item} />
-                      </div>
-                      <div className="doctor-extra-infor">
-                        <DoctorExtraInfor currentDoctorId={item} />
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}{" "}
+              </div>
+            ) : (
+              <div className="not-found-doctor">
+                <div className="text-not-found">Not Found Doctor</div>
+              </div>
+            )}
           </div>
         </div>
+        <HomeFooter />
       </div>
     );
   }
