@@ -9,6 +9,7 @@ import { LANGUAGE } from "../../../utils";
 import { toast } from "react-toastify";
 import _ from "lodash";
 import { saveBulkScheduleDoctor } from "../../../services/userService";
+import moment from "moment";
 
 class ManageSchedule extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class ManageSchedule extends Component {
     this.state = {
       listDoctors: [],
       selectedDoctor: [],
-      currentDate: new Date(),
+      currentDate: moment(new Date()).startOf(`day`).valueOf(),
       rangeTime: "",
     };
   }
@@ -92,11 +93,7 @@ class ManageSchedule extends Component {
       toast.error("Invaild selected doctor");
       return;
     }
-    // hỗ trợ chỉ lấy ngày còn giờ phút set về 0 để thống nhất
-    // việc timeStamp của một ngày giống nhau dù chọn
-    // vào thời điểm nào
-    currentDate.setHours(0, 0, 0, 0);
-    let formatDate = currentDate.getTime();
+    let formatDate = new Date(currentDate).getTime();
     if (rangeTime && rangeTime.length > 0) {
       let selectedTime = rangeTime.filter((item) => item.isSelected === true);
       if (selectedTime && selectedTime.length > 0) {
@@ -152,7 +149,7 @@ class ManageSchedule extends Component {
                   onChange={this.handleOnChangeDatePicker}
                   className="form-control"
                   value={this.state.currentDate}
-                  minDate={new Date()}
+                  minDate={moment(new Date()).startOf(`day`).valueOf()}
                 />
               </div>
               <div className="col-12 pick-hour-container">

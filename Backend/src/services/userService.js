@@ -56,7 +56,14 @@ let handleUserLogin = (email, password) => {
         //user already exist
         //compare password
         let user = await db.User.findOne({
-          attributes: ["email", "roleId", "password", "firstName", "lastName"], // chỉ lấy bằng này thuộc tính
+          attributes: [
+            "id",
+            "email",
+            "roleId",
+            "password",
+            "firstName",
+            "lastName",
+          ], // chỉ lấy bằng này thuộc tính
           where: { email: email },
           // raw: true,
         });

@@ -443,6 +443,11 @@ let getListPatientForDoctorService = (doctorId, date) => {
                 },
               ],
             },
+            {
+              model: db.Allcode,
+              as: "timeTypeDataPatient",
+              attributes: [`valueEn`, `valueVi`],
+            },
           ],
           // raw là false thì nó sẽ trả ra dưới dạng sequelize object
           // nest là true thì sẽ trả object bên trong object

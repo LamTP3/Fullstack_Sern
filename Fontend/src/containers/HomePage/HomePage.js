@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import { connect } from "react-redux";
 import HomeHeader from "../HomePage/Header/HomeHeader";
-import Specialty from "./Section/Section";
+// import Specialty from "./Section/Section";
 import About from "./Section/About";
 import HomeFooter from "./Footer/HomeFooter";
 import "./HomePage.scss";
@@ -11,6 +11,14 @@ import {
   getSpecialtySercie,
   getAllClinicSercie,
 } from "../../services/userService";
+// đã test lazy component với việc import thường thì lazy nhanh hơn một tí
+// ngoài ra lý do khiến khi vào trang home bị lag là do phải tải ảnh cho
+// section Cơ sở y tế nổi bật
+// ta lưu ảnh ở dưới database cho section này quá lớn
+// nặng hơn nhiểu so với các section khác.
+// check db để rõ
+const Specialty = React.lazy(() => import("./Section/Section"));
+
 class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -20,15 +28,6 @@ class HomePage extends Component {
       arrClinic: [],
     };
   }
-
-  // data4 = [
-  //   { id: 1, name: "Cẩm Nang 1" },
-  //   { id: 2, name: "Cẩm Nang 2" },
-  //   { id: 3, name: "Cẩm Nang 3" },
-  //   { id: 4, name: "Cẩm Nang 4" },
-  //   { id: 5, name: "Cẩm Nang 5" },
-  //   { id: 6, name: "Cẩm Nang 6" },
-  // ];
 
   async componentDidMount() {
     this.props.loadTopDoctor();
@@ -45,6 +44,7 @@ class HomePage extends Component {
       });
     }
   }
+
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.topDoctor !== this.props.topDoctor) {
       this.setState({
@@ -52,37 +52,39 @@ class HomePage extends Component {
       });
     }
   }
+
   render() {
     const { intl } = this.props;
     return (
       <>
         <HomeHeader showBanner={true} />
-        <Specialty
-          title={intl.formatMessage({
-            id: "homepage.specialty-popular",
-          })}
-          bg_Color="#eee"
-          urlNavigate="detail-specialty"
-          data={this.state.arrSpecialty}
-        />
-        <Specialty
-          title={intl.formatMessage({
-            id: "homepage.outstanding-clinic",
-          })}
-          bg_Color="#eee"
-          data={this.state.arrClinic}
-          urlNavigate="detail-clinic"
-        />
-        <Specialty
-          title={intl.formatMessage({
-            id: "homepage.outstanding-doctor",
-          })}
-          bg_Color="#eee"
-          data={this.state.arrDoctor}
-          doctor={true}
-          urlNavigate="detail-doctor"
-        />
-        {/* <Specialty title="Cẩm Nang" bg_Color="#eee" data={this.data4} /> */}
+        <Suspense fallback={<div>Loading...</div>}>
+          <Specialty
+            title={intl.formatMessage({
+              id: "homepage.specialty-popular",
+            })}
+            bg_Color="#eee"
+            urlNavigate="detail-specialty"
+            data={this.state.arrSpecialty}
+          />
+          <Specialty
+            title={intl.formatMessage({
+              id: "homepage.outstanding-clinic",
+            })}
+            bg_Color="#eee"
+            data={this.state.arrClinic}
+            urlNavigate="detail-clinic"
+          />
+          <Specialty
+            title={intl.formatMessage({
+              id: "homepage.outstanding-doctor",
+            })}
+            bg_Color="#eee"
+            data={this.state.arrDoctor}
+            doctor={true}
+            urlNavigate="detail-doctor"
+          />
+        </Suspense>
         <About />
         <HomeFooter />
       </>
