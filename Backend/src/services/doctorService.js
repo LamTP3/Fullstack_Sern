@@ -2,7 +2,7 @@ import db from "../models/index";
 require(`dotenv`).config();
 import _ from "lodash";
 const MAX_NUMBER_SCHEDULE = process.env.MAX_NUMBER_SCHEDULE;
-
+import emailService from "../services/emailService";
 let getTopDoctorHome = (limit) => {
   return new Promise(async (resolve, reject) => {
     try {
@@ -465,6 +465,52 @@ let getListPatientForDoctorService = (doctorId, date) => {
   });
 };
 
+let sendRemedyService = (data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      if (
+        !data.email ||
+        !data.doctorId ||
+        !data.patientId ||
+        !data.timeType ||
+        !data.date
+      ) {
+        resolve({
+          errCode: 1,
+          errMessage: "Missing required parameter !",
+        });
+      } else {
+        //update patient status
+        let appointment = await db.Booking.findOne({
+          where: {
+            doctorId: data.doctorId,
+            patientId: data.patientId,
+            timeType: data.timeType,
+            date: data.date,
+            statusId: "S2",
+          },
+          raw: false,
+          // trả ra raw = false thì mới dùng được save cho db
+        });
+
+        if (appointment) {
+          appointment.statusId = "S3";
+          appointment.save();
+        }
+
+        //send email remedy
+        await emailService.sendAttachments(data);
+        resolve({
+          errCode: 0,
+          errMessage: "Send Redemy Success",
+        });
+      }
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
+
 module.exports = {
   getTopDoctorHome: getTopDoctorHome,
   getAllDoctors: getAllDoctors,
@@ -475,4 +521,5 @@ module.exports = {
   getExtraInforDoctortByIdService: getExtraInforDoctortByIdService,
   getProfileDoctortByIdService: getProfileDoctortByIdService,
   getListPatientForDoctorService: getListPatientForDoctorService,
+  sendRemedyService: sendRemedyService,
 };
