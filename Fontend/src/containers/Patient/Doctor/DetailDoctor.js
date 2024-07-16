@@ -7,6 +7,9 @@ import { LANGUAGE } from "../../../utils/constant";
 import DoctorSchedule from "./DoctorSchedule";
 import DoctorExtraInfor from "./DoctorExtraInfor";
 import HomeFooter from "../../HomePage/Footer/HomeFooter";
+// import Comment from "./SocialPlugin/Comment";
+// import LikeAndShare from "./SocialPlugin/LikeAndShare";
+
 class DetailDoctor extends Component {
   constructor(props) {
     super(props);
@@ -38,6 +41,9 @@ class DetailDoctor extends Component {
       nameVi = `${detailDoctor.positionData?.valueVi}, ${detailDoctor.firstName} ${detailDoctor.lastName}`;
       nameEN = `${detailDoctor.positionData?.valueEn}, ${detailDoctor.firstName} ${detailDoctor.lastName}`;
     }
+
+    // let curentURl =
+    //   +process.env.REACT_APP_IS_LOCALHOST === 1 ? window.location.href : "";
     return (
       <>
         <HomeHeader />
@@ -57,6 +63,9 @@ class DetailDoctor extends Component {
                 {detailDoctor?.Markdown?.description && (
                   <span>{detailDoctor?.Markdown?.description}</span>
                 )}
+                {/* <div className="like-share-plugin">
+                  <LikeAndShare dataHref={curentURl} />
+                </div> */}
               </div>
             </div>
           </div>
@@ -77,7 +86,9 @@ class DetailDoctor extends Component {
               ></div>
             )}
           </div>
-          <div className="comment-doctor"></div>
+          <div className="comment-doctor">
+            {/* <Comment dataHref={curentURl} width={"100%"} /> */}
+          </div>
         </div>
         <HomeFooter />
       </>

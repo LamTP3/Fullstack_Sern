@@ -20,6 +20,10 @@ class ManageSpecialty extends Component {
       descriptionHTML: "",
       previewImgURL: "",
     };
+    // Tạo tham chiếu đến trường input của file
+    // Mục đích để sau khi submit ta có thể clear được tên file ảnh trước
+    // khỏi trường input
+    this.fileInputRef = React.createRef();
   }
   async componentDidMount() {}
 
@@ -77,6 +81,7 @@ class ManageSpecialty extends Component {
         descriptionHTML: "",
         previewImgURL: "",
       });
+      this.fileInputRef.current.value = null;
     } else {
       toast.error(`Something wrong ...`);
     }
@@ -98,20 +103,23 @@ class ManageSpecialty extends Component {
                 onChange={(event) => this.onChangeInput(event, "name")}
               />
             </div>
-            <div className="col-6 form-group">
+            <div className="col-6 form-group ">
               <label>Ảnh Chuyên Khoa</label>
               <input
                 className="form-control"
                 type="file"
+                ref={this.fileInputRef} // Gán tham chiếu đến trường input
                 onChange={(e) => this.handleOnChangeImage(e)}
               />
-              <div
-                className="preview-image"
-                style={{
-                  backgroundImage: `url(${this.state.previewImgURL})`,
-                }}
-                onClick={() => this.openPreviewImage()}
-              ></div>
+              <div className="m-s-container">
+                <div
+                  className="preview-image"
+                  style={{
+                    backgroundImage: `url(${this.state.previewImgURL})`,
+                  }}
+                  onClick={() => this.openPreviewImage()}
+                ></div>
+              </div>
             </div>
             <div className="col-12 mt-3">
               <MdEditor

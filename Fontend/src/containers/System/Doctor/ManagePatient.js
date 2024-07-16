@@ -42,11 +42,6 @@ class ManagePatient extends Component {
     }
   };
 
-  async componentDidUpdate(prevProps, prveState, snapshot) {
-    if (this.props.language !== prevProps.language) {
-    }
-  }
-
   handleOnChangeDatePicker = (date) => {
     this.setState(
       {
@@ -77,7 +72,7 @@ class ManagePatient extends Component {
     });
   };
 
-  handleBtnRemedy = () => {};
+  // handleBtnRemedy = () => {};
 
   closeRemedyModal = () => {
     this.setState({
@@ -101,16 +96,23 @@ class ManagePatient extends Component {
       language: this.props.language,
       patientName: dataModal.patientName,
     });
+    // khi send redemy thành công
     if (res && res.errCode === 0) {
       toast.success("Send Redemy success");
+      // đóng Modal Redemy và tắt spin loading
       this.setState({
         isOpenRemedyModal: false,
         isShowLoading: false,
       });
+
+      // gọi lại api để set dữ liệu cho bảng
+      let { user } = this.props;
+      let { currentDate } = this.state;
+      let formatDate = new Date(currentDate).getTime();
+      this.getDataPatient(user, formatDate);
     } else {
       toast.error("Something wrong...");
     }
-    // console.log(`Check res: `, res);
   };
 
   render() {
@@ -121,7 +123,7 @@ class ManagePatient extends Component {
         <LoadingOverlay
           active={this.state.isShowLoading}
           spinner
-          text="Loading your content..."
+          text="Loading send redemy..."
         >
           <div className="manage-patient-container">
             <div className="m-p-title">Quản lý bệnh nhân khám bệnh</div>
@@ -135,7 +137,7 @@ class ManagePatient extends Component {
                     value={this.state.currentDate}
                   />
                 </div>
-                <div className="col-12 table-manage-patient">
+                <div className="col-12 table-manage-patient mt-4">
                   {dataPatient && dataPatient.length > 0 ? (
                     <table>
                       <thead>
@@ -178,12 +180,12 @@ class ManagePatient extends Component {
                                 >
                                   Xác nhận
                                 </button>
-                                <button
+                                {/* <button
                                   className="mp-btn-remedy"
                                   onClick={() => this.handleBtnRemedy()}
                                 >
                                   Gửi hóa đơn
-                                </button>
+                                </button> */}
                               </td>
                             </tr>
                           );

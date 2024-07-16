@@ -18,7 +18,7 @@ export const adminMenu = [
       {
         //quản lý kế hoạch khám bệnh bác sĩ
         name: "menu.doctor.manage-schedule",
-        link: "/doctor/manage-schedule",
+        link: "/system/manage-schedule",
       },
     ],
   },
@@ -42,27 +42,30 @@ export const adminMenu = [
       },
     ],
   },
-  {
-    //quản lý cẩm nang
-    name: "menu.admin.handbook",
-    menus: [
-      {
-        name: "menu.admin.manage-handbook",
-        link: "/system/manage-handbook",
-      },
-    ],
-  },
+  // định nghĩa ở đây nhưng file System.js không tạo router
+  // thì khi ở tài khoản admin vào đường link sẽ bị lỗi,
+  // nghi là do cách code file Navigator.js
+  // {
+  //   //quản lý cẩm nang
+  //   name: "menu.admin.handbook",
+  //   menus: [
+  //     {
+  //       name: "menu.admin.manage-handbook",
+  //       link: "/system/manage-handbook",
+  //     },
+  //   ],
+  // },
 ];
 
 export const doctorMenu = [
   {
     name: "menu.admin.manage-user",
     menus: [
-      {
-        //quản lý kế hoạch khám bệnh bác sĩ
-        name: "menu.doctor.manage-schedule",
-        link: "/doctor/manage-schedule",
-      },
+      // {
+      //   //quản lý kế hoạch khám bệnh bác sĩ
+      //   name: "menu.doctor.manage-schedule",
+      //   link: "/doctor/manage-schedule",
+      // },
       {
         //quản lý bệnh nhân khám bệnh bác sĩ
         name: "menu.doctor.manage-patient",

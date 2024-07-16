@@ -1,23 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  // Redirect,
-  Route,
-  Switch,
-} from "react-router-dom";
+import { Redirect, Route, Switch } from "react-router-dom";
 import UserManage from "../containers/System/UserManage";
 import UserRedux from "../containers/System/Admin/UserRedux";
 import Header from "../containers/HeaderSystem/Header";
 import ManageDoctor from "../containers/System/Admin/ManageDoctor";
 import ManageSpecialty from "../containers/System/Specialty/ManageSpecialty";
 import ManageClinic from "../containers/System/Clinic/ManageClinic";
-
+import ManageSchedule from "../containers/System/Doctor/ManageSchedule";
 class System extends Component {
   render() {
-    const {
-      // systemMenuPath,
-      isLoggedIn,
-    } = this.props;
+    const { systemMenuPath, isLoggedIn } = this.props;
     return (
       <>
         {isLoggedIn && <Header />}
@@ -31,13 +24,16 @@ class System extends Component {
                 path="/system/manage-specialty"
                 component={ManageSpecialty}
               />
-              /system/manage-clinic
               <Route path="/system/manage-clinic" component={ManageClinic} />
-              {/* <Route
+              <Route
+                path="/system/manage-schedule"
+                component={ManageSchedule}
+              />
+              <Route
                 component={() => {
                   return <Redirect to={systemMenuPath} />;
                 }}
-              /> */}
+              />
             </Switch>
           </div>
         </div>

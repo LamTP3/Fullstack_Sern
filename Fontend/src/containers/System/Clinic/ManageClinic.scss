@@ -15,11 +15,14 @@
     min-width: 80px;
     background-color: orange;
   }
-  .all-specailty {
+  .m-c-container {
+    border: 1px solid gray;
+    display: flex;
+    justify-content: center;
     .preview-image {
       height: 200px;
-      width: 100%;
-      border: 1px solid gray;
+      width: 300px;
+
       background: center center no-repeat;
       background-size: cover;
     }

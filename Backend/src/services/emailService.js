@@ -50,28 +50,28 @@ let getBodyHTMLEmail = (dataSend) => {
   }
   if (dataSend.language === "en") {
     result = `
-<h3> Hello ${dataSend.patientName} </h3>
-<p> You are receiving this email because you have scheduled an appointment
-online medical on Booking Care </p>
-<p> Information for scheduling medical examination: </p>
-<div>
-    <b>
+    <h3> Hello ${dataSend.patientName} </h3>
+    <p> You are receiving this email because you have scheduled an appointment
+    online medical on Booking Care </p>
+    <p> Information for scheduling medical examination: </p>
+    <div>
+      <b>
         Time: ${dataSend.time}
-    </b>
-</div>
-<div>
-    <b>
-    Doctor: ${dataSend.doctorName}
-    </b>
-</div>
-<p> If the above information is true, please click
-Click on the link below to confirm and complete medical examination procedures </p>
-<div>
-    <a href= ${dataSend.redirectLink} target="_blank"> Click Here </a>
-<div>
-<div>
-Sincerely thank
-</div>
+      </b>
+    </div>
+    <div>
+      <b>
+        Doctor: ${dataSend.doctorName}
+      </b>
+    </div>
+    <p> If the above information is true, please click
+    Click on the link below to confirm and complete medical examination procedures </p>
+    <div>
+      <a href= ${dataSend.redirectLink} target="_blank"> Click Here </a>
+    <div>
+    <div>
+      Sincerely thank
+    </div>
 
 `;
   }
@@ -85,7 +85,7 @@ let getBodyHTMLEmailRemedy = (dataSend) => {
     result = `
     <h3> Xin chào ${dataSend.patientName}!</h3>
     <p> Bạn nhận được email này vì đã đặt lịch khám 
-    bệnh online trên Booking Care thành cồn </p>
+    bệnh online trên Booking Care thành công </p>
     <p> Thông tin đơn thuốc/hóa đơn được gửi trong file đính kém: </p>
     <div>
         Xin chân thành cảm ơn
@@ -95,15 +95,16 @@ let getBodyHTMLEmailRemedy = (dataSend) => {
   }
   if (dataSend.language === "en") {
     result = `
-<h3> Hello ${dataSend.patientName} </h3>
-<p> You are receiving this email because you have scheduled an appointment
-online medical on Booking Care </p>
-<p>
-Prescription/invoice information is sent in the attached file: </p>
+      <h3> Hello ${dataSend.patientName} </h3>
+      <p> You are receiving this email because you have scheduled an appointment
+      online medical on Booking Care </p>
+      <p>
+        Prescription/invoice information is sent in the attached file: 
+      </p>
 
-<div>
-Sincerely thank
-</div>
+    <div>
+      Sincerely thank
+    </div>
 
 `;
   }
@@ -126,7 +127,7 @@ let sendAttachments = async (dataSend) => {
     },
   });
 
-  let infor = await transporter.sendMail({
+  await transporter.sendMail({
     from: '"Phuc Lam Tran 👻" <lamtp2810@gmail.com>',
     to: dataSend.email,
     subject: "Kết quả đặt lịch khám bệnh",

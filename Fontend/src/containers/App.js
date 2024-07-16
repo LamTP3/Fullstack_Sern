@@ -5,7 +5,8 @@ import { ConnectedRouter as Router } from "connected-react-router";
 import { history } from "../redux";
 import { ToastContainer } from "react-toastify";
 import {
-  userIsAuthenticated,
+  userIsAuthenticatedSystem,
+  userIsAuthenticatedDoctor,
   userIsNotAuthenticated,
 } from "../hoc/authentication";
 import { path } from "../utils";
@@ -35,13 +36,14 @@ class App extends Component {
                     component={userIsNotAuthenticated(Login)}
                   />
                   <Route
-                    path={path.SYSTEM}
-                    component={userIsAuthenticated(System)}
+                    path={path.DOCTOR}
+                    component={userIsAuthenticatedDoctor(Doctor)}
                   />
                   <Route
-                    path={path.DOCTOR}
-                    component={userIsAuthenticated(Doctor)}
+                    path={path.SYSTEM}
+                    component={userIsAuthenticatedSystem(System)}
                   />
+
                   <Route path={path.HOMEPAGE} component={HomePage} />
                   <Route path={path.DETAIL_DOCTOR} component={DetailDoctor} />
                   <Route

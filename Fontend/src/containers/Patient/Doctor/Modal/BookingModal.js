@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import { FormattedMessage } from "react-intl";
 import _ from "lodash";
 import moment from "moment";
+import LoadingOverlay from "react-loading-overlay";
 class BookingModal extends Component {
   constructor(props) {
     super(props);
@@ -26,6 +27,8 @@ class BookingModal extends Component {
       genderArr: {},
       timeType: "",
       date: "",
+
+      isShowLoading: false,
     };
   }
 
@@ -119,6 +122,9 @@ class BookingModal extends Component {
   handleConfirmBooking = async () => {
     let timeString = this.buildTimeBooking(this.props.dataTime);
     let doctorName = this.buildDoctorName(this.props.dataTime);
+    this.setState({
+      isShowLoading: true,
+    });
     let res = await postBookAppointmentService({
       email: this.state.email,
       timeType: this.state.timeType,
@@ -140,6 +146,20 @@ class BookingModal extends Component {
 
     if (res && res.errCode === 0) {
       toast.success("Booking success");
+      this.setState({
+        fullName: "",
+        phoneNumber: "",
+        email: "",
+        address: "",
+        reason: "",
+        person: "",
+        doctorId: "",
+        selectedGender: {},
+        timeType: "",
+        date: "",
+
+        isShowLoading: false,
+      });
       this.props.closeBookingModal();
     } else {
       toast.success("Booking  a new appointment error");
@@ -150,140 +170,146 @@ class BookingModal extends Component {
     let { isOpenModal, closeBookingModal, dataTime } = this.props;
     return (
       <>
-        <Modal
-          isOpen={isOpenModal}
-          className={"booking-modal-container"}
-          size="lg"
-          centered
-          toggle={closeBookingModal}
+        <LoadingOverlay
+          active={this.state.isShowLoading}
+          spinner
+          text="Loading booking appointment..."
         >
-          <div className="booking-modal-content">
-            <div className="booking-modal-header">
-              <span className="left">
-                <FormattedMessage id="patient.booking-modal.title" />
-              </span>
-              <span className="right" onClick={closeBookingModal}>
-                <i className="fas fa-times"></i>
-              </span>
-            </div>
-            <div className="booking-modal-body container">
-              <div className="doctor-infor">
-                <ProfileDoctor
-                  doctorId={dataTime.doctorId}
-                  isShowDescriptionDoctor={false}
-                  dataTime={dataTime}
-                  isShowLinkDetail={false}
-                  isShowPrice={true}
-                />
+          <Modal
+            isOpen={isOpenModal}
+            className={"booking-modal-container"}
+            size="lg"
+            centered
+            toggle={closeBookingModal}
+          >
+            <div className="booking-modal-content">
+              <div className="booking-modal-header">
+                <span className="left">
+                  <FormattedMessage id="patient.booking-modal.title" />
+                </span>
+                <span className="right" onClick={closeBookingModal}>
+                  <i className="fas fa-times"></i>
+                </span>
               </div>
+              <div className="booking-modal-body container">
+                <div className="doctor-infor">
+                  <ProfileDoctor
+                    doctorId={dataTime.doctorId}
+                    isShowDescriptionDoctor={false}
+                    dataTime={dataTime}
+                    isShowLinkDetail={false}
+                    isShowPrice={true}
+                  />
+                </div>
 
-              <div className="row">
-                <div className="col-6 form-group">
-                  <label>
-                    {" "}
-                    <FormattedMessage id="patient.booking-modal.name" />
-                  </label>
-                  <input
-                    className="form-control"
-                    value={this.state.fullName}
-                    onChange={(event) =>
-                      this.handleOnChangeInput(event, "fullName")
-                    }
-                  />
-                </div>
-                <div className="col-6 form-group">
-                  <label>
-                    {" "}
-                    <FormattedMessage id="patient.booking-modal.phone" />
-                  </label>
-                  <input
-                    className="form-control"
-                    value={this.state.phoneNumber}
-                    onChange={(event) =>
-                      this.handleOnChangeInput(event, "phoneNumber")
-                    }
-                  />
-                </div>
-                <div className="col-6 form-group">
-                  <label>
-                    <FormattedMessage id="patient.booking-modal.email" />
-                  </label>
-                  <input
-                    className="form-control"
-                    value={this.state.email}
-                    onChange={(event) =>
-                      this.handleOnChangeInput(event, "email")
-                    }
-                  />
-                </div>
-                <div className="col-6 form-group">
-                  <label>
-                    {" "}
-                    <FormattedMessage id="patient.booking-modal.address" />
-                  </label>
-                  <input
-                    className="form-control"
-                    value={this.state.address}
-                    onChange={(event) =>
-                      this.handleOnChangeInput(event, "address")
-                    }
-                  />
-                </div>
-                <div className="col-12 form-group">
-                  <label>
-                    {" "}
-                    <FormattedMessage id="patient.booking-modal.reason" />
-                  </label>
-                  <input
-                    className="form-control"
-                    value={this.state.reason}
-                    onChange={(event) =>
-                      this.handleOnChangeInput(event, "reason")
-                    }
-                  />
-                </div>
-                <div className="col-6 form-group">
-                  <label>
-                    {" "}
-                    <FormattedMessage id="patient.booking-modal.person" />
-                  </label>
-                  <input
-                    className="form-control"
-                    value={this.state.person}
-                    onChange={(event) =>
-                      this.handleOnChangeInput(event, "person")
-                    }
-                  />
-                </div>
-                <div className="col-6 form-group">
-                  <label>
-                    {" "}
-                    <FormattedMessage id="patient.booking-modal.gender" />
-                  </label>
-                  <Select
-                    value={this.state.selectedGender}
-                    onChange={this.handleChangeSelect}
-                    options={this.state.genderArr}
-                  />
+                <div className="row">
+                  <div className="col-6 form-group">
+                    <label>
+                      {" "}
+                      <FormattedMessage id="patient.booking-modal.name" />
+                    </label>
+                    <input
+                      className="form-control"
+                      value={this.state.fullName}
+                      onChange={(event) =>
+                        this.handleOnChangeInput(event, "fullName")
+                      }
+                    />
+                  </div>
+                  <div className="col-6 form-group">
+                    <label>
+                      {" "}
+                      <FormattedMessage id="patient.booking-modal.phone" />
+                    </label>
+                    <input
+                      className="form-control"
+                      value={this.state.phoneNumber}
+                      onChange={(event) =>
+                        this.handleOnChangeInput(event, "phoneNumber")
+                      }
+                    />
+                  </div>
+                  <div className="col-6 form-group">
+                    <label>
+                      <FormattedMessage id="patient.booking-modal.email" />
+                    </label>
+                    <input
+                      className="form-control"
+                      value={this.state.email}
+                      onChange={(event) =>
+                        this.handleOnChangeInput(event, "email")
+                      }
+                    />
+                  </div>
+                  <div className="col-6 form-group">
+                    <label>
+                      {" "}
+                      <FormattedMessage id="patient.booking-modal.address" />
+                    </label>
+                    <input
+                      className="form-control"
+                      value={this.state.address}
+                      onChange={(event) =>
+                        this.handleOnChangeInput(event, "address")
+                      }
+                    />
+                  </div>
+                  <div className="col-12 form-group">
+                    <label>
+                      {" "}
+                      <FormattedMessage id="patient.booking-modal.reason" />
+                    </label>
+                    <input
+                      className="form-control"
+                      value={this.state.reason}
+                      onChange={(event) =>
+                        this.handleOnChangeInput(event, "reason")
+                      }
+                    />
+                  </div>
+                  <div className="col-6 form-group">
+                    <label>
+                      {" "}
+                      <FormattedMessage id="patient.booking-modal.person" />
+                    </label>
+                    <input
+                      className="form-control"
+                      value={this.state.person}
+                      onChange={(event) =>
+                        this.handleOnChangeInput(event, "person")
+                      }
+                    />
+                  </div>
+                  <div className="col-6 form-group">
+                    <label>
+                      {" "}
+                      <FormattedMessage id="patient.booking-modal.gender" />
+                    </label>
+                    <Select
+                      value={this.state.selectedGender}
+                      onChange={this.handleChangeSelect}
+                      options={this.state.genderArr}
+                    />
+                  </div>
                 </div>
               </div>
+              <div className="booking-modal-footer">
+                <button
+                  className="btn-booking-confirm"
+                  onClick={() => this.handleConfirmBooking()}
+                >
+                  <FormattedMessage id="patient.booking-modal.confirm" />
+                </button>
+                <button
+                  className="btn-booking-cancel"
+                  onClick={closeBookingModal}
+                >
+                  <FormattedMessage id="patient.booking-modal.cancel" />
+                </button>
+              </div>
             </div>
-            <div className="booking-modal-footer">
-              <button
-                className="btn-booking-confirm"
-                onClick={() => this.handleConfirmBooking()}
-              >
-                <FormattedMessage id="patient.booking-modal.confirm" />
-              </button>
-              <button
-                className="btn-booking-cancel"
-                onClick={closeBookingModal}
-              >
-                <FormattedMessage id="patient.booking-modal.cancel" />
-              </button>
-            </div>
-          </div>
-        </Modal>
+          </Modal>
+        </LoadingOverlay>
       </>
     );
   }

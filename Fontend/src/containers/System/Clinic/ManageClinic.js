@@ -21,6 +21,10 @@ class ManageClinic extends Component {
       descriptionHTML: "",
       previewImgURL: "",
     };
+    // Tạo tham chiếu đến trường input của file
+    // Mục đích để sau khi submit ta có thể clear được tên file ảnh trước
+    // khỏi trường input
+    this.fileInputRef = React.createRef();
   }
   async componentDidMount() {}
 
@@ -80,6 +84,7 @@ class ManageClinic extends Component {
         descriptionHTML: "",
         previewImgURL: "",
       });
+      this.fileInputRef.current.value = null;
     } else {
       toast.error(`Something wrong ...`);
     }
@@ -106,6 +111,7 @@ class ManageClinic extends Component {
               <input
                 className="form-control"
                 type="file"
+                ref={this.fileInputRef} // Gán tham chiếu đến trường input
                 onChange={(e) => this.handleOnChangeImage(e)}
               />
             </div>
@@ -118,7 +124,7 @@ class ManageClinic extends Component {
                 onChange={(event) => this.onChangeInput(event, "address")}
               />
             </div>
-            <div className="col-6 mt-4">
+            <div className="col-6 mt-4 m-c-container">
               <div
                 className="preview-image"
                 style={{

@@ -82,27 +82,6 @@ const withRouterInnerRef = (WrappedComponent) => {
 };
 
 class Navigator extends Component {
-  state = {
-    //Một đối tượng lưu trữ trạng thái mở rộng của các menu.
-    //Các khóa của đối tượng này có định dạng
-    //groupIndex_menuIndex và giá trị là true hoặc false.
-    expandedMenu: {},
-  };
-  //Mục đích: Thay đổi trạng thái mở rộng của một menu cụ thể.
-  //   toggle = (groupIndex, menuIndex) => {
-  //     const expandedMenu = {};
-  //     const needExpand = !(
-  //       this.state.expandedMenu[groupIndex + "_" + menuIndex] === true
-  //     );
-  //     if (needExpand) {
-  //       expandedMenu[groupIndex + "_" + menuIndex] = true;
-  //     }
-
-  //     this.setState({
-  //       expandedMenu: expandedMenu,
-  //     });
-  //   };
-
   //Mục đích: Kiểm tra xem menu hoặc submenu có hoạt động
   //dựa trên URL hiện tại hay không.
   isMenuHasSubMenuActive = (location, subMenus, link) => {
